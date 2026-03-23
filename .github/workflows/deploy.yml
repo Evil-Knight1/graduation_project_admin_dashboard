@@ -32,7 +32,7 @@ jobs:
       - name: Build Flutter web
         run: |
           flutter build web --release \
-          --base-href "/grad_project_admin_dashboard_deployed/"
+          --base-href "/graduation_project_admin_dashboard/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
