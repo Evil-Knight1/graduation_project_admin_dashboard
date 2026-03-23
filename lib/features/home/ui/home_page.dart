@@ -82,4 +82,3 @@ class _TopBar extends StatelessWidget {
     );
   }
 }
-

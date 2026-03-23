@@ -1,7 +1,7 @@
-import '../../models/api_response.dart';
-import '../../models/doctor.dart';
-import '../../models/paged_result.dart';
-import '../../services/api_service.dart';
+import '../../../models/api_response.dart';
+import '../../../models/doctor.dart';
+import '../../../models/paged_result.dart';
+import '../../../services/api_service.dart';
 
 class DoctorsRepository {
   final ApiService api;
@@ -51,7 +51,8 @@ class DoctorsRepository {
   }
 
   Future<ApiResponse<Doctor>> updateDoctorProfile(Doctor doctor) async {
-    final response = await api.put('/api/Doctor/profile', data: doctor.toUpdateJson());
+    final response =
+        await api.put('/api/Doctor/profile', data: doctor.toUpdateJson());
     return ApiResponse<Doctor>.fromJson(
       response.data as Map<String, dynamic>,
       (data) => Doctor.fromJson(data as Map<String, dynamic>),

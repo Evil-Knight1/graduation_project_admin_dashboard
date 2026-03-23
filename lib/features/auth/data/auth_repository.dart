@@ -1,6 +1,6 @@
-import '../../models/api_response.dart';
-import '../../models/auth_response.dart';
-import '../../services/api_service.dart';
+import '../../../models/api_response.dart';
+import '../../../models/auth_response.dart';
+import '../../../services/api_service.dart';
 
 class AuthRepository {
   final ApiService api;

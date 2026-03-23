@@ -53,7 +53,11 @@ class AdminDashboardApp extends StatelessWidget {
               repository: context.read<AuthRepository>(),
               storage: storageService,
             )..add(const AppStarted()),
-          ),\n          BlocProvider(\n            create: (context) => DashboardBloc(context.read<DashboardRepository>()),\n          ),
+          ),
+          BlocProvider(
+            create: (context) =>
+                DashboardBloc(context.read<DashboardRepository>()),
+          ),
           BlocProvider(
             create: (context) => DoctorsBloc(context.read<DoctorsRepository>()),
           ),

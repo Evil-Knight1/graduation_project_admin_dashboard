@@ -1,6 +1,6 @@
-import '../../models/api_response.dart';
-import '../../models/statistics.dart';
-import '../../services/api_service.dart';
+import '../../../models/api_response.dart';
+import '../../../models/statistics.dart';
+import '../../../services/api_service.dart';
 
 class DashboardRepository {
   final ApiService api;

@@ -13,7 +13,7 @@ ThemeData buildAppTheme() {
   return base.copyWith(
     colorScheme: colorScheme,
     scaffoldBackgroundColor: AppConstants.background,
-    cardTheme: const CardTheme(
+    cardTheme: const CardThemeData(
       elevation: 0,
       margin: EdgeInsets.zero,
       color: AppConstants.cardBackground,
