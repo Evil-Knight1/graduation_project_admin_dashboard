@@ -18,7 +18,9 @@ class _DoctorsPageState extends State<DoctorsPage> {
   @override
   void initState() {
     super.initState();
-    context.read<DoctorsBloc>().add(const DoctorsFetched(pageNumber: 1, pageSize: 10));
+    context
+        .read<DoctorsBloc>()
+        .add(const DoctorsFetched(pageNumber: 1, pageSize: 10));
   }
 
   void _openCreateDialog() {
@@ -60,7 +62,9 @@ class _DoctorsPageState extends State<DoctorsPage> {
         title: const Text('Delete Doctor'),
         content: const Text('Are you sure you want to delete this doctor?'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+          TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Cancel')),
           ElevatedButton(
             onPressed: () {
               Navigator.pop(context);
@@ -76,20 +80,26 @@ class _DoctorsPageState extends State<DoctorsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DoctorsBloc, DoctorsState>(
-      listener: (context, state) {\n        if (state.message != null && state.message!.isNotEmpty) {\n          ScaffoldMessenger.of(context).showSnackBar(\n            SnackBar(content: Text(state.message!)),\n          );\n        }\n      },\n      builder: (context, state) {
+      listener: (context, state) {
+        if (state.message != null && state.message!.isNotEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message!)),
+          );
+        }
+      },
+      builder: (context, state) {
         if (state.status == DoctorsStatus.loading) {
           return const LoadingView();
         }
         if (state.status == DoctorsStatus.error) {
           return ErrorView(
             message: state.message ?? 'Failed to load doctors',
-            onRetry: () => context
-                .read<DoctorsBloc>()
-                .add(DoctorsFetched(pageNumber: state.pageNumber, pageSize: state.pageSize)),
+            onRetry: () => context.read<DoctorsBloc>().add(DoctorsFetched(
+                pageNumber: state.pageNumber, pageSize: state.pageSize)),
           );
         }
 
-        final width = MediaQuery.of(context).size.width;
+        final width = MediaQuery.sizeOf(context).width;
         final isDesktop = Responsive.isDesktop(width);
 
         return Padding(
@@ -101,7 +111,8 @@ class _DoctorsPageState extends State<DoctorsPage> {
                 children: [
                   const Expanded(
                     child: Text('Doctors',
-                        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
                   ),
                   ElevatedButton.icon(
                     onPressed: _openCreateDialog,
@@ -111,7 +122,8 @@ class _DoctorsPageState extends State<DoctorsPage> {
                 ],
               ),
               const SizedBox(height: 16),
-              if (state.actionInProgress) const LinearProgressIndicator(minHeight: 2),
+              if (state.actionInProgress)
+                const LinearProgressIndicator(minHeight: 2),
               const SizedBox(height: 8),
               Expanded(
                 child: isDesktop
@@ -122,11 +134,14 @@ class _DoctorsPageState extends State<DoctorsPage> {
                         pageSize: state.pageSize,
                         onPageChanged: (pageNumber, pageSize) {
                           context.read<DoctorsBloc>().add(
-                                DoctorsPageChanged(pageNumber: pageNumber, pageSize: pageSize),
+                                DoctorsPageChanged(
+                                    pageNumber: pageNumber, pageSize: pageSize),
                               );
                         },
-                        onApprove: (id) => context.read<DoctorsBloc>().add(DoctorApproved(id)),
-                        onReject: (id) => context.read<DoctorsBloc>().add(DoctorRejected(id)),
+                        onApprove: (id) =>
+                            context.read<DoctorsBloc>().add(DoctorApproved(id)),
+                        onReject: (id) =>
+                            context.read<DoctorsBloc>().add(DoctorRejected(id)),
                         onEdit: _openEditDialog,
                         onDelete: _confirmDelete,
                       )
@@ -137,11 +152,14 @@ class _DoctorsPageState extends State<DoctorsPage> {
                         pageSize: state.pageSize,
                         onPageChanged: (pageNumber, pageSize) {
                           context.read<DoctorsBloc>().add(
-                                DoctorsPageChanged(pageNumber: pageNumber, pageSize: pageSize),
+                                DoctorsPageChanged(
+                                    pageNumber: pageNumber, pageSize: pageSize),
                               );
                         },
-                        onApprove: (id) => context.read<DoctorsBloc>().add(DoctorApproved(id)),
-                        onReject: (id) => context.read<DoctorsBloc>().add(DoctorRejected(id)),
+                        onApprove: (id) =>
+                            context.read<DoctorsBloc>().add(DoctorApproved(id)),
+                        onReject: (id) =>
+                            context.read<DoctorsBloc>().add(DoctorRejected(id)),
                         onEdit: _openEditDialog,
                         onDelete: _confirmDelete,
                       ),
@@ -214,12 +232,14 @@ class _DoctorsTable extends StatelessWidget {
                       children: [
                         IconButton(
                           tooltip: 'Edit',
-                          icon: const Icon(Icons.edit, color: AppConstants.primary),
+                          icon: const Icon(Icons.edit,
+                              color: AppConstants.primary),
                           onPressed: () => onEdit(doctor),
                         ),
                         IconButton(
                           tooltip: 'Delete',
-                          icon: const Icon(Icons.delete_outline, color: Colors.redAccent),
+                          icon: const Icon(Icons.delete_outline,
+                              color: Colors.redAccent),
                           onPressed: () => onDelete(doctor.id),
                         ),
                         if (!doctor.isApproved)
@@ -248,7 +268,8 @@ class _DoctorsTable extends StatelessWidget {
             DropdownButton<int>(
               value: pageSize,
               items: const [5, 10, 20]
-                  .map((size) => DropdownMenuItem(value: size, child: Text('$size rows')))
+                  .map((size) =>
+                      DropdownMenuItem(value: size, child: Text('$size rows')))
                   .toList(),
               onChanged: (value) {
                 if (value != null) {
@@ -258,11 +279,15 @@ class _DoctorsTable extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             IconButton(
-              onPressed: hasPrevious ? () => onPageChanged(pageNumber - 1, pageSize) : null,
+              onPressed: hasPrevious
+                  ? () => onPageChanged(pageNumber - 1, pageSize)
+                  : null,
               icon: const Icon(Icons.chevron_left),
             ),
             IconButton(
-              onPressed: hasNext ? () => onPageChanged(pageNumber + 1, pageSize) : null,
+              onPressed: hasNext
+                  ? () => onPageChanged(pageNumber + 1, pageSize)
+                  : null,
               icon: const Icon(Icons.chevron_right),
             ),
           ],
@@ -311,7 +336,8 @@ class _DoctorsList extends StatelessWidget {
               return Card(
                 child: ListTile(
                   title: Text(doctor.fullName),
-                  subtitle: Text('${doctor.email} • ${doctor.specialization ?? 'General'}'),
+                  subtitle: Text(
+                      '${doctor.email} ï¿½ ${doctor.specialization ?? 'General'}'),
                   trailing: PopupMenuButton<String>(
                     onSelected: (value) {
                       switch (value) {
@@ -331,11 +357,14 @@ class _DoctorsList extends StatelessWidget {
                     },
                     itemBuilder: (context) => [
                       const PopupMenuItem(value: 'edit', child: Text('Edit')),
-                      const PopupMenuItem(value: 'delete', child: Text('Delete')),
+                      const PopupMenuItem(
+                          value: 'delete', child: Text('Delete')),
                       if (!doctor.isApproved)
-                        const PopupMenuItem(value: 'approve', child: Text('Approve')),
+                        const PopupMenuItem(
+                            value: 'approve', child: Text('Approve')),
                       if (!doctor.isApproved)
-                        const PopupMenuItem(value: 'reject', child: Text('Reject')),
+                        const PopupMenuItem(
+                            value: 'reject', child: Text('Reject')),
                     ],
                   ),
                 ),
@@ -349,7 +378,8 @@ class _DoctorsList extends StatelessWidget {
             DropdownButton<int>(
               value: pageSize,
               items: const [5, 10, 20]
-                  .map((size) => DropdownMenuItem(value: size, child: Text('$size rows')))
+                  .map((size) =>
+                      DropdownMenuItem(value: size, child: Text('$size rows')))
                   .toList(),
               onChanged: (value) {
                 if (value != null) {
@@ -359,11 +389,15 @@ class _DoctorsList extends StatelessWidget {
             ),
             const Spacer(),
             IconButton(
-              onPressed: hasPrevious ? () => onPageChanged(pageNumber - 1, pageSize) : null,
+              onPressed: hasPrevious
+                  ? () => onPageChanged(pageNumber - 1, pageSize)
+                  : null,
               icon: const Icon(Icons.chevron_left),
             ),
             IconButton(
-              onPressed: hasNext ? () => onPageChanged(pageNumber + 1, pageSize) : null,
+              onPressed: hasNext
+                  ? () => onPageChanged(pageNumber + 1, pageSize)
+                  : null,
               icon: const Icon(Icons.chevron_right),
             ),
           ],
@@ -474,14 +508,16 @@ class _DoctorCreateDialogState extends State<_DoctorCreateDialog> {
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _license,
-                  decoration: const InputDecoration(labelText: 'License Number'),
+                  decoration:
+                      const InputDecoration(labelText: 'License Number'),
                   validator: (value) =>
                       value == null || value.isEmpty ? 'Required' : null,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _specialization,
-                  decoration: const InputDecoration(labelText: 'Specialization'),
+                  decoration:
+                      const InputDecoration(labelText: 'Specialization'),
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
@@ -491,13 +527,15 @@ class _DoctorCreateDialogState extends State<_DoctorCreateDialog> {
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _years,
-                  decoration: const InputDecoration(labelText: 'Years of Experience'),
+                  decoration:
+                      const InputDecoration(labelText: 'Years of Experience'),
                   keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
                   controller: _clinic,
-                  decoration: const InputDecoration(labelText: 'Clinic Address'),
+                  decoration:
+                      const InputDecoration(labelText: 'Clinic Address'),
                 ),
                 const SizedBox(height: 12),
                 TextFormField(
@@ -510,7 +548,9 @@ class _DoctorCreateDialogState extends State<_DoctorCreateDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+        TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel')),
         ElevatedButton(onPressed: _submit, child: const Text('Create')),
       ],
     );
@@ -567,7 +607,8 @@ class _DoctorEditDialogState extends State<_DoctorEditDialog> {
     super.initState();
     _fullName = TextEditingController(text: widget.doctor.fullName);
     _phone = TextEditingController(text: widget.doctor.phone);
-    _specialization = TextEditingController(text: widget.doctor.specialization ?? '');
+    _specialization =
+        TextEditingController(text: widget.doctor.specialization ?? '');
     _bio = TextEditingController(text: widget.doctor.bio ?? '');
     _years = TextEditingController(
       text: widget.doctor.yearsOfExperience?.toString() ?? '',
@@ -642,7 +683,8 @@ class _DoctorEditDialogState extends State<_DoctorEditDialog> {
               const SizedBox(height: 12),
               TextField(
                 controller: _years,
-                decoration: const InputDecoration(labelText: 'Years of Experience'),
+                decoration:
+                    const InputDecoration(labelText: 'Years of Experience'),
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 12),
@@ -660,11 +702,11 @@ class _DoctorEditDialogState extends State<_DoctorEditDialog> {
         ),
       ),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+        TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel')),
         ElevatedButton(onPressed: _submit, child: const Text('Save')),
       ],
     );
   }
 }
-
-
