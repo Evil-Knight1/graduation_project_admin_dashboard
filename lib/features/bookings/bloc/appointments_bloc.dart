@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import '../../../core/failure.dart';
 import '../../../models/appointment.dart';
 import '../data/appointments_repository.dart';
 
@@ -19,16 +21,12 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
     Emitter<AppointmentsState> emit,
   ) async {
     emit(const AppointmentsState.loading());
-    try {
-      final response = await repository.fetchAppointments();
-      if (response.success && response.data != null) {
-        emit(AppointmentsState.loaded(response.data as List<Appointment>));
-      } else {
-        emit(AppointmentsState.error(response.message ?? 'Failed to load.'));
-      }
-    } catch (e) {
-      emit(AppointmentsState.error(e.toString()));
-    }
+    final Either<Failure, List<Appointment>> result =
+        await repository.fetchAppointments();
+    result.fold(
+      (failure) => emit(AppointmentsState.error(_formatFailure(failure))),
+      (appointments) => emit(AppointmentsState.loaded(appointments)),
+    );
   }
 
   Future<void> _onStatusChanged(
@@ -37,15 +35,14 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
   ) async {
     if (state.status != AppointmentsStatus.loaded) return;
     emit(AppointmentsState.updating(state.appointments));
-    try {
-      if (event.status == AppointmentStatus.cancelled) {
-        await repository.cancel(event.id);
-      } else {
-        await repository.updateStatus(id: event.id, status: event.status);
-      }
-      add(const AppointmentsFetched());
-    } catch (e) {
-      emit(AppointmentsState.error(e.toString()));
+    if (event.status == AppointmentStatus.cancelled) {\n      final cancelResult = await repository.cancel(event.id);\n      cancelResult.fold(\n        (failure) => emit(AppointmentsState.error(_formatFailure(failure))),\n        (_) => add(const AppointmentsFetched()),\n      );\n      return;\n    }\n\n    final result = await repository.updateStatus(id: event.id, status: event.status);\n    result.fold(\n      (failure) => emit(AppointmentsState.error(_formatFailure(failure))),\n      (_) => add(const AppointmentsFetched()),\n    );
+  }
+
+  String _formatFailure(Failure failure) {
+    if (failure.statusCode != null) {
+      return '${failure.message} (Code ${failure.statusCode})';
     }
+    return failure.message;
   }
 }
+

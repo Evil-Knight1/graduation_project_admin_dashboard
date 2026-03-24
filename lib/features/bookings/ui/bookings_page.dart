@@ -29,10 +29,13 @@ class _BookingsPageState extends State<BookingsPage> {
         if (state.status == AppointmentsStatus.loading) {
           return const LoadingView();
         }
+
         if (state.status == AppointmentsStatus.error) {
           return ErrorView(
             message: state.message ?? 'Failed to load bookings',
-            onRetry: () => context.read<AppointmentsBloc>().add(const AppointmentsFetched()),
+            onRetry: () => context
+                .read<AppointmentsBloc>()
+                .add(const AppointmentsFetched()),
           );
         }
 

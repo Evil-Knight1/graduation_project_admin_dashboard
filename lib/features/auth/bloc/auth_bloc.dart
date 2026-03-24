@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import '../../../core/failure.dart';
 import '../../../models/auth_response.dart';
 import '../../../services/secure_storage_service.dart';
 import '../data/auth_repository.dart';
@@ -32,24 +34,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     emit(const AuthState.loading());
-    try {
-      final response = await repository.login(
-        email: event.email,
-        password: event.password,
-      );
-      if (response.success && response.data != null) {
-        final auth = response.data as AuthResponse;
-        await storage.saveTokens(
-          token: auth.token,
-          refreshToken: auth.refreshToken,
-        );
+    final Either<Failure, AuthResponse> result =
+        await repository.login(email: event.email, password: event.password);
+
+    result.fold(
+      (failure) => emit(AuthState.error(_formatFailure(failure))),
+      (auth) async {
+        await storage.saveTokens(token: auth.token, refreshToken: auth.refreshToken);
         emit(const AuthState.authenticated());
-      } else {
-        emit(AuthState.error(response.message ?? 'Login failed.'));
-      }
-    } catch (e) {
-      emit(AuthState.error('Login failed. ${e.toString()}'));
-    }
+      },
+    );
   }
 
   Future<void> _onLogoutRequested(
@@ -58,5 +52,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     await storage.clear();
     emit(const AuthState.unauthenticated());
+  }
+
+  String _formatFailure(Failure failure) {
+    if (failure.statusCode != null) {
+      return '${failure.message} (Code ${failure.statusCode})';
+    }
+    return failure.message;
   }
 }

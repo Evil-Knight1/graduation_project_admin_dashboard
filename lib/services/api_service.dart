@@ -12,6 +12,7 @@ class ApiService {
             baseUrl: AppConstants.baseUrl,
             connectTimeout: const Duration(seconds: 20),
             receiveTimeout: const Duration(seconds: 20),
+            validateStatus: (status) => status != null && status < 500,
           ),
         ) {
     dio.interceptors.add(

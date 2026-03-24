@@ -75,8 +75,8 @@ class _DoctorsPageState extends State<DoctorsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DoctorsBloc, DoctorsState>(
-      builder: (context, state) {
+    return BlocConsumer<DoctorsBloc, DoctorsState>(
+      listener: (context, state) {\n        if (state.message != null && state.message!.isNotEmpty) {\n          ScaffoldMessenger.of(context).showSnackBar(\n            SnackBar(content: Text(state.message!)),\n          );\n        }\n      },\n      builder: (context, state) {
         if (state.status == DoctorsStatus.loading) {
           return const LoadingView();
         }
@@ -666,4 +666,5 @@ class _DoctorEditDialogState extends State<_DoctorEditDialog> {
     );
   }
 }
+
 
