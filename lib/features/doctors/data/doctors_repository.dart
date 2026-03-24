@@ -1,10 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../core/failure.dart';
-import '../../models/api_response.dart';
-import '../../models/doctor.dart';
-import '../../models/paged_result.dart';
-import '../../services/api_service.dart';
+import '../../../core/failure.dart';
+import '../../../models/api_response.dart';
+import '../../../models/doctor.dart';
+import '../../../models/paged_result.dart';
+import '../../../services/api_service.dart';
 
 class DoctorsRepository {
   final ApiService api;
@@ -36,7 +36,8 @@ class DoctorsRepository {
       if (parsed.success && parsed.data != null) {
         return Right(parsed.data as PagedResult<Doctor>);
       }
-      return Left(Failure(message: parsed.message ?? 'Failed to load doctors.'));
+      return Left(
+          Failure(message: parsed.message ?? 'Failed to load doctors.'));
     } on DioException catch (e) {
       return Left(Failure.fromDio(e));
     } catch (e) {
@@ -73,7 +74,8 @@ class DoctorsRepository {
 
   Future<Either<Failure, Doctor>> updateDoctorProfile(Doctor doctor) async {
     try {
-      final response = await api.put('/api/Doctor/profile', data: doctor.toUpdateJson());
+      final response =
+          await api.put('/api/Doctor/profile', data: doctor.toUpdateJson());
       if (response.data is! Map<String, dynamic>) {
         return Left(Failure(message: 'Invalid response from server.'));
       }
@@ -85,7 +87,8 @@ class DoctorsRepository {
       if (parsed.success && parsed.data != null) {
         return Right(parsed.data as Doctor);
       }
-      return Left(Failure(message: parsed.message ?? 'Failed to update doctor.'));
+      return Left(
+          Failure(message: parsed.message ?? 'Failed to update doctor.'));
     } on DioException catch (e) {
       return Left(Failure.fromDio(e));
     } catch (e) {
@@ -119,7 +122,8 @@ class DoctorsRepository {
         'hospital': hospital,
       });
 
-      return _booleanResponse(response.data, fallbackMessage: 'Failed to add doctor.');
+      return _booleanResponse(response.data,
+          fallbackMessage: 'Failed to add doctor.');
     } on DioException catch (e) {
       return Left(Failure.fromDio(e));
     } catch (e) {
@@ -127,7 +131,8 @@ class DoctorsRepository {
     }
   }
 
-  Either<Failure, bool> _booleanResponse(dynamic data, {String? fallbackMessage}) {
+  Either<Failure, bool> _booleanResponse(dynamic data,
+      {String? fallbackMessage}) {
     if (data is! Map<String, dynamic>) {
       return Left(Failure(message: 'Invalid response from server.'));
     }
@@ -138,6 +143,7 @@ class DoctorsRepository {
     if (parsed.success) {
       return Right(parsed.data == true);
     }
-    return Left(Failure(message: parsed.message ?? fallbackMessage ?? 'Operation failed.'));
+    return Left(Failure(
+        message: parsed.message ?? fallbackMessage ?? 'Operation failed.'));
   }
 }

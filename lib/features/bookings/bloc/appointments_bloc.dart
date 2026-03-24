@@ -35,7 +35,25 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
   ) async {
     if (state.status != AppointmentsStatus.loaded) return;
     emit(AppointmentsState.updating(state.appointments));
-    if (event.status == AppointmentStatus.cancelled) {\n      final cancelResult = await repository.cancel(event.id);\n      cancelResult.fold(\n        (failure) => emit(AppointmentsState.error(_formatFailure(failure))),\n        (_) => add(const AppointmentsFetched()),\n      );\n      return;\n    }\n\n    final result = await repository.updateStatus(id: event.id, status: event.status);\n    result.fold(\n      (failure) => emit(AppointmentsState.error(_formatFailure(failure))),\n      (_) => add(const AppointmentsFetched()),\n    );
+    if (event.status == AppointmentStatus.cancelled) {
+      final cancelResult = await repository.cancel(event.id);
+      cancelResult.fold(
+        (Failure failure) =>
+            emit(AppointmentsState.error(_formatFailure(failure))),
+        (_) => add(const AppointmentsFetched()),
+      );
+      return;
+    }
+
+    final result = await repository.updateStatus(
+      id: event.id,
+      status: event.status,
+    );
+    result.fold(
+      (Failure failure) =>
+          emit(AppointmentsState.error(_formatFailure(failure))),
+      (_) => add(const AppointmentsFetched()),
+    );
   }
 
   String _formatFailure(Failure failure) {
@@ -45,4 +63,3 @@ class AppointmentsBloc extends Bloc<AppointmentsEvent, AppointmentsState> {
     return failure.message;
   }
 }
-

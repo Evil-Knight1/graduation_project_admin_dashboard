@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../core/failure.dart';
-import '../../models/api_response.dart';
-import '../../models/appointment.dart';
-import '../../services/api_service.dart';
+import '../../../core/failure.dart';
+import '../../../models/api_response.dart';
+import '../../../models/appointment.dart';
+import '../../../services/api_service.dart';
 
 class AppointmentsRepository {
   final ApiService api;
@@ -25,7 +25,8 @@ class AppointmentsRepository {
       if (parsed.success && parsed.data != null) {
         return Right(parsed.data as List<Appointment>);
       }
-      return Left(Failure(message: parsed.message ?? 'Failed to load appointments.'));
+      return Left(
+          Failure(message: parsed.message ?? 'Failed to load appointments.'));
     } on DioException catch (e) {
       return Left(Failure.fromDio(e));
     } catch (e) {
@@ -56,7 +57,8 @@ class AppointmentsRepository {
       if (parsed.success && parsed.data != null) {
         return Right(parsed.data as Appointment);
       }
-      return Left(Failure(message: parsed.message ?? 'Failed to update status.'));
+      return Left(
+          Failure(message: parsed.message ?? 'Failed to update status.'));
     } on DioException catch (e) {
       return Left(Failure.fromDio(e));
     } catch (e) {

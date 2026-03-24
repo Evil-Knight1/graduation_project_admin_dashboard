@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../models/api_response.dart';
-import '../../models/auth_response.dart';
-import '../../services/api_service.dart';
-import '../../core/failure.dart';
+import '../../../models/api_response.dart';
+import '../../../models/auth_response.dart';
+import '../../../services/api_service.dart';
+import '../../../core/failure.dart';
 
 class AuthRepository {
   final ApiService api;

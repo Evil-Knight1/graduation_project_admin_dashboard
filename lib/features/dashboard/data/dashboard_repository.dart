@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import '../../core/failure.dart';
-import '../../models/api_response.dart';
-import '../../models/statistics.dart';
-import '../../services/api_service.dart';
+import '../../../core/failure.dart';
+import '../../../models/api_response.dart';
+import '../../../models/statistics.dart';
+import '../../../services/api_service.dart';
 
 class DashboardRepository {
   final ApiService api;

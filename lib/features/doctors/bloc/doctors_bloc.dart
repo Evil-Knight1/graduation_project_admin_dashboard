@@ -27,7 +27,8 @@ class DoctorsBloc extends Bloc<DoctorsEvent, DoctorsState> {
     Emitter<DoctorsState> emit,
   ) async {
     emit(state.copyWith(status: DoctorsStatus.loading, message: null));
-    final Either<Failure, PagedResult<Doctor>> result = await repository.fetchDoctors(
+    final Either<Failure, PagedResult<Doctor>> result =
+        await repository.fetchDoctors(
       pageNumber: event.pageNumber,
       pageSize: event.pageSize,
     );
@@ -63,7 +64,8 @@ class DoctorsBloc extends Bloc<DoctorsEvent, DoctorsState> {
     emit(state.copyWith(actionInProgress: true, message: null));
     final result = await repository.approveDoctor(event.id);
     result.fold(
-      (failure) => emit(state.copyWith(actionInProgress: false, message: _formatFailure(failure))),
+      (failure) => emit(state.copyWith(
+          actionInProgress: false, message: _formatFailure(failure))),
       (_) => emit(state.copyWith(actionInProgress: false)),
     );
     add(DoctorsFetched(pageNumber: state.pageNumber, pageSize: state.pageSize));
@@ -76,7 +78,8 @@ class DoctorsBloc extends Bloc<DoctorsEvent, DoctorsState> {
     emit(state.copyWith(actionInProgress: true, message: null));
     final result = await repository.rejectDoctor(event.id);
     result.fold(
-      (failure) => emit(state.copyWith(actionInProgress: false, message: _formatFailure(failure))),
+      (failure) => emit(state.copyWith(
+          actionInProgress: false, message: _formatFailure(failure))),
       (_) => emit(state.copyWith(actionInProgress: false)),
     );
     add(DoctorsFetched(pageNumber: state.pageNumber, pageSize: state.pageSize));
@@ -89,7 +92,8 @@ class DoctorsBloc extends Bloc<DoctorsEvent, DoctorsState> {
     emit(state.copyWith(actionInProgress: true, message: null));
     final result = await repository.deleteUser(event.id);
     result.fold(
-      (failure) => emit(state.copyWith(actionInProgress: false, message: _formatFailure(failure))),
+      (failure) => emit(state.copyWith(
+          actionInProgress: false, message: _formatFailure(failure))),
       (_) => emit(state.copyWith(actionInProgress: false)),
     );
     add(DoctorsFetched(pageNumber: state.pageNumber, pageSize: state.pageSize));
@@ -113,7 +117,8 @@ class DoctorsBloc extends Bloc<DoctorsEvent, DoctorsState> {
       hospital: event.hospital,
     );
     result.fold(
-      (failure) => emit(state.copyWith(actionInProgress: false, message: _formatFailure(failure))),
+      (failure) => emit(state.copyWith(
+          actionInProgress: false, message: _formatFailure(failure))),
       (_) => emit(state.copyWith(actionInProgress: false)),
     );
     add(DoctorsFetched(pageNumber: state.pageNumber, pageSize: state.pageSize));
@@ -126,7 +131,8 @@ class DoctorsBloc extends Bloc<DoctorsEvent, DoctorsState> {
     emit(state.copyWith(actionInProgress: true, message: null));
     final result = await repository.updateDoctorProfile(event.doctor);
     result.fold(
-      (failure) => emit(state.copyWith(actionInProgress: false, message: _formatFailure(failure))),
+      (failure) => emit(state.copyWith(
+          actionInProgress: false, message: _formatFailure(failure))),
       (_) => emit(state.copyWith(actionInProgress: false)),
     );
     add(DoctorsFetched(pageNumber: state.pageNumber, pageSize: state.pageSize));
