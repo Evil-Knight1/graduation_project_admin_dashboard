@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "Total revenue retrieved successfully",
+  "data": {
+    "totalRevenue": 45000.50
+  },
+  "errors": null
+}

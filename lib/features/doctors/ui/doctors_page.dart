@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../../../core/constants.dart';
 import '../../../core/responsive.dart';
 import '../../../models/doctor.dart';
 import '../../../widgets/error_view.dart';
 import '../../../widgets/loading_view.dart';
+import '../../../widgets/custom_toast.dart';
 import '../bloc/doctors_bloc.dart';
+import 'add_doctor_page.dart';
 
 class DoctorsPage extends StatefulWidget {
   const DoctorsPage({super.key});
@@ -23,23 +27,10 @@ class _DoctorsPageState extends State<DoctorsPage> {
         .add(const DoctorsFetched(pageNumber: 1, pageSize: 10));
   }
 
-  void _openCreateDialog() {
-    showDialog(
-      context: context,
-      builder: (context) => _DoctorCreateDialog(onSubmit: (data) {
-        context.read<DoctorsBloc>().add(DoctorCreated(
-              fullName: data.fullName,
-              email: data.email,
-              phone: data.phone,
-              password: data.password,
-              licenseNumber: data.licenseNumber,
-              specialization: data.specialization,
-              bio: data.bio,
-              yearsOfExperience: data.yearsOfExperience,
-              clinicAddress: data.clinicAddress,
-              hospital: data.hospital,
-            ));
-      }),
+  void _openCreatePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddDoctorPage()),
     );
   }
 
@@ -82,8 +73,10 @@ class _DoctorsPageState extends State<DoctorsPage> {
     return BlocConsumer<DoctorsBloc, DoctorsState>(
       listener: (context, state) {
         if (state.message != null && state.message!.isNotEmpty) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message!)),
+          CustomToast.show(
+            context,
+            state.message!,
+            isError: state.status == DoctorsStatus.error,
           );
         }
       },
@@ -103,66 +96,90 @@ class _DoctorsPageState extends State<DoctorsPage> {
         final isDesktop = Responsive.isDesktop(width);
 
         return Padding(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(24.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Text('Doctors',
                         style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold)),
+                            fontSize: 22.sp, fontWeight: FontWeight.bold)),
                   ),
                   ElevatedButton.icon(
-                    onPressed: _openCreateDialog,
+                    onPressed: _openCreatePage,
                     icon: const Icon(Icons.add),
                     label: const Text('Add Doctor'),
                   )
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               if (state.actionInProgress)
-                const LinearProgressIndicator(minHeight: 2),
-              const SizedBox(height: 8),
+                LinearProgressIndicator(minHeight: 2.h),
+              SizedBox(height: 8.h),
               Expanded(
-                child: isDesktop
-                    ? _DoctorsTable(
-                        doctors: state.doctors,
-                        totalCount: state.totalCount,
-                        pageNumber: state.pageNumber,
-                        pageSize: state.pageSize,
-                        onPageChanged: (pageNumber, pageSize) {
-                          context.read<DoctorsBloc>().add(
-                                DoctorsPageChanged(
-                                    pageNumber: pageNumber, pageSize: pageSize),
-                              );
-                        },
-                        onApprove: (id) =>
-                            context.read<DoctorsBloc>().add(DoctorApproved(id)),
-                        onReject: (id) =>
-                            context.read<DoctorsBloc>().add(DoctorRejected(id)),
-                        onEdit: _openEditDialog,
-                        onDelete: _confirmDelete,
+                child: state.doctors.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.person_off_outlined,
+                                size: 64.r, color: AppConstants.outline),
+                            SizedBox(height: 16.h),
+                            Text(
+                              'No doctors found',
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppConstants.textSecondary),
+                            ),
+                          ],
+                        ),
                       )
-                    : _DoctorsList(
-                        doctors: state.doctors,
-                        totalCount: state.totalCount,
-                        pageNumber: state.pageNumber,
-                        pageSize: state.pageSize,
-                        onPageChanged: (pageNumber, pageSize) {
-                          context.read<DoctorsBloc>().add(
-                                DoctorsPageChanged(
-                                    pageNumber: pageNumber, pageSize: pageSize),
-                              );
-                        },
-                        onApprove: (id) =>
-                            context.read<DoctorsBloc>().add(DoctorApproved(id)),
-                        onReject: (id) =>
-                            context.read<DoctorsBloc>().add(DoctorRejected(id)),
-                        onEdit: _openEditDialog,
-                        onDelete: _confirmDelete,
-                      ),
+                    : isDesktop
+                        ? _DoctorsTable(
+                            doctors: state.doctors,
+                            totalCount: state.totalCount,
+                            pageNumber: state.pageNumber,
+                            pageSize: state.pageSize,
+                            onPageChanged: (pageNumber, pageSize) {
+                              context.read<DoctorsBloc>().add(
+                                    DoctorsPageChanged(
+                                        pageNumber: pageNumber,
+                                        pageSize: pageSize),
+                                  );
+                            },
+                            onApprove: (id) => context
+                                .read<DoctorsBloc>()
+                                .add(DoctorApproved(id)),
+                            onReject: (id) => context
+                                .read<DoctorsBloc>()
+                                .add(DoctorRejected(id)),
+                            onEdit: _openEditDialog,
+                            onDelete: _confirmDelete,
+                          )
+                        : _DoctorsList(
+                            doctors: state.doctors,
+                            totalCount: state.totalCount,
+                            pageNumber: state.pageNumber,
+                            pageSize: state.pageSize,
+                            onPageChanged: (pageNumber, pageSize) {
+                              context.read<DoctorsBloc>().add(
+                                    DoctorsPageChanged(
+                                        pageNumber: pageNumber,
+                                        pageSize: pageSize),
+                                  );
+                            },
+                            onApprove: (id) => context
+                                .read<DoctorsBloc>()
+                                .add(DoctorApproved(id)),
+                            onReject: (id) => context
+                                .read<DoctorsBloc>()
+                                .add(DoctorRejected(id)),
+                            onEdit: _openEditDialog,
+                            onDelete: _confirmDelete,
+                          ),
               ),
             ],
           ),
@@ -260,7 +277,7 @@ class _DoctorsTable extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         Row(
           children: [
             Text('Showing $start-$end of $totalCount'),
@@ -277,7 +294,7 @@ class _DoctorsTable extends StatelessWidget {
                 }
               },
             ),
-            const SizedBox(width: 8),
+            SizedBox(width: 8.w),
             IconButton(
               onPressed: hasPrevious
                   ? () => onPageChanged(pageNumber - 1, pageSize)
@@ -330,7 +347,7 @@ class _DoctorsList extends StatelessWidget {
         Expanded(
           child: ListView.separated(
             itemCount: doctors.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 12),
+            separatorBuilder: (_, __) => SizedBox(height: 12.h),
             itemBuilder: (context, index) {
               final doctor = doctors[index];
               return Card(
@@ -372,7 +389,7 @@ class _DoctorsList extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12.h),
         Row(
           children: [
             DropdownButton<int>(
@@ -407,181 +424,6 @@ class _DoctorsList extends StatelessWidget {
   }
 }
 
-class _DoctorCreateDialog extends StatefulWidget {
-  final void Function(_DoctorCreateData data) onSubmit;
-
-  const _DoctorCreateDialog({required this.onSubmit});
-
-  @override
-  State<_DoctorCreateDialog> createState() => _DoctorCreateDialogState();
-}
-
-class _DoctorCreateDialogState extends State<_DoctorCreateDialog> {
-  final _formKey = GlobalKey<FormState>();
-
-  final _fullName = TextEditingController();
-  final _email = TextEditingController();
-  final _phone = TextEditingController();
-  final _password = TextEditingController();
-  final _license = TextEditingController();
-  final _specialization = TextEditingController();
-  final _bio = TextEditingController();
-  final _years = TextEditingController();
-  final _clinic = TextEditingController();
-  final _hospital = TextEditingController();
-
-  @override
-  void dispose() {
-    _fullName.dispose();
-    _email.dispose();
-    _phone.dispose();
-    _password.dispose();
-    _license.dispose();
-    _specialization.dispose();
-    _bio.dispose();
-    _years.dispose();
-    _clinic.dispose();
-    _hospital.dispose();
-    super.dispose();
-  }
-
-  void _submit() {
-    if (_formKey.currentState?.validate() != true) return;
-    widget.onSubmit(
-      _DoctorCreateData(
-        fullName: _fullName.text.trim(),
-        email: _email.text.trim(),
-        phone: _phone.text.trim(),
-        password: _password.text.trim(),
-        licenseNumber: _license.text.trim(),
-        specialization: _specialization.text.trim().isEmpty
-            ? null
-            : _specialization.text.trim(),
-        bio: _bio.text.trim().isEmpty ? null : _bio.text.trim(),
-        yearsOfExperience: int.tryParse(_years.text.trim()),
-        clinicAddress: _clinic.text.trim().isEmpty ? null : _clinic.text.trim(),
-        hospital: _hospital.text.trim().isEmpty ? null : _hospital.text.trim(),
-      ),
-    );
-    Navigator.pop(context);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Add Doctor'),
-      content: SizedBox(
-        width: 520,
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _fullName,
-                  decoration: const InputDecoration(labelText: 'Full Name'),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Required' : null,
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _email,
-                  decoration: const InputDecoration(labelText: 'Email'),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Required' : null,
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _phone,
-                  decoration: const InputDecoration(labelText: 'Phone'),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Required' : null,
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _password,
-                  decoration: const InputDecoration(labelText: 'Password'),
-                  obscureText: true,
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Required' : null,
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _license,
-                  decoration:
-                      const InputDecoration(labelText: 'License Number'),
-                  validator: (value) =>
-                      value == null || value.isEmpty ? 'Required' : null,
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _specialization,
-                  decoration:
-                      const InputDecoration(labelText: 'Specialization'),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _bio,
-                  decoration: const InputDecoration(labelText: 'Bio'),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _years,
-                  decoration:
-                      const InputDecoration(labelText: 'Years of Experience'),
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _clinic,
-                  decoration:
-                      const InputDecoration(labelText: 'Clinic Address'),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _hospital,
-                  decoration: const InputDecoration(labelText: 'Hospital'),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      actions: [
-        TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel')),
-        ElevatedButton(onPressed: _submit, child: const Text('Create')),
-      ],
-    );
-  }
-}
-
-class _DoctorCreateData {
-  final String fullName;
-  final String email;
-  final String phone;
-  final String password;
-  final String licenseNumber;
-  final String? specialization;
-  final String? bio;
-  final int? yearsOfExperience;
-  final String? clinicAddress;
-  final String? hospital;
-
-  _DoctorCreateData({
-    required this.fullName,
-    required this.email,
-    required this.phone,
-    required this.password,
-    required this.licenseNumber,
-    this.specialization,
-    this.bio,
-    this.yearsOfExperience,
-    this.clinicAddress,
-    this.hospital,
-  });
-}
 
 class _DoctorEditDialog extends StatefulWidget {
   final Doctor doctor;
@@ -657,7 +499,7 @@ class _DoctorEditDialogState extends State<_DoctorEditDialog> {
     return AlertDialog(
       title: const Text('Edit Doctor'),
       content: SizedBox(
-        width: 520,
+        width: 520.w,
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -665,34 +507,34 @@ class _DoctorEditDialogState extends State<_DoctorEditDialog> {
                 controller: _fullName,
                 decoration: const InputDecoration(labelText: 'Full Name'),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               TextField(
                 controller: _phone,
                 decoration: const InputDecoration(labelText: 'Phone'),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               TextField(
                 controller: _specialization,
                 decoration: const InputDecoration(labelText: 'Specialization'),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               TextField(
                 controller: _bio,
                 decoration: const InputDecoration(labelText: 'Bio'),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               TextField(
                 controller: _years,
                 decoration:
                     const InputDecoration(labelText: 'Years of Experience'),
                 keyboardType: TextInputType.number,
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               TextField(
                 controller: _clinic,
                 decoration: const InputDecoration(labelText: 'Clinic Address'),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12.h),
               TextField(
                 controller: _hospital,
                 decoration: const InputDecoration(labelText: 'Hospital'),

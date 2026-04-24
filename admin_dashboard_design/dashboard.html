@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#380d00",
+                        "secondary-container": "#b6c8fe",
+                        "surface-variant": "#e1e2ec",
+                        "inverse-surface": "#2e3038",
+                        "primary": "#003d9b",
+                        "on-secondary-container": "#415382",
+                        "secondary": "#4c5d8d",
+                        "inverse-on-surface": "#f0f0fa",
+                        "secondary-fixed-dim": "#b4c5fb",
+                        "inverse-primary": "#b2c5ff",
+                        "on-primary-fixed": "#001848",
+                        "on-surface": "#191b22",
+                        "on-tertiary-fixed-variant": "#812800",
+                        "on-primary-container": "#c4d2ff",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#0c56d0",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d9d9e3",
+                        "surface-container": "#ededf7",
+                        "primary-container": "#0052cc",
+                        "tertiary": "#7b2600",
+                        "surface-container-highest": "#e1e2ec",
+                        "surface": "#faf8ff",
+                        "on-secondary-fixed": "#021945",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#dae2ff",
+                        "tertiary-fixed": "#ffdbcf",
+                        "outline-variant": "#c3c6d6",
+                        "on-background": "#191b22",
+                        "outline": "#737685",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "on-secondary-fixed-variant": "#344573",
+                        "background": "#faf8ff",
+                        "on-tertiary-container": "#ffc6b2",
+                        "primary-fixed": "#dae2ff",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "surface-container-low": "#f2f3fd",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434654",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e7e7f1",
+                        "surface-bright": "#faf8ff",
+                        "tertiary-container": "#a33500"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .ambient-shadow {
+            box-shadow: 0px 24px 48px rgba(25, 27, 34, 0.06);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Top Navigation Shell -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-6 py-4 bg-[#f2f3fd] font-manrope font-bold text-lg">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#003d9b]">menu</span>
+<span class="font-manrope font-extrabold text-[#003d9b] tracking-tight">GradProject</span>
+</div>
+<div class="hidden md:flex items-center flex-1 max-w-md mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl pl-10 py-2 focus:ring-2 focus:ring-primary/20 placeholder:text-outline-variant font-label text-sm" placeholder="Search analytics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative p-2 hover:bg-blue-50 transition-colors rounded-full cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold leading-none text-[#003d9b]">Dr. Sterling</p>
+<p class="text-[10px] text-on-surface-variant font-medium">Administrator</p>
+</div>
+<img alt="Dr. Sterling" class="w-10 h-10 rounded-full border-2 border-white ambient-shadow" data-alt="professional portrait of a senior medical administrator with a confident expression in a clean studio lighting setup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoIfzH2YZP_zGoGd9UjmtjgUbSIbR2NuVbrCrpVKIWKmO6J3Y3vrMTrpAiPZ-hwHJLk-tE6RCwGWQBb3tsXRlfnFB_QHDe5dAET_Ny9DT84C1HlSsNiVt_WZc3lt6-8xco-o1FTfi8iMccj_fpmggPhC7PWX2yOT8oE7Dc8rI0x3KsVz-546_LVTFA8Eh1YYw5Cw8BcRYKkwW0FnUVyjbjSXLdBk3XXQS6DxApjV8eSnF9ZlMVRnYQkrTNTQpKLMB0FvVnUmx-hyc"/>
+</div>
+</div>
+</header>
+<!-- Sidebar Navigation Drawer -->
+<aside class="fixed inset-y-0 left-0 w-72 z-[60] flex flex-col pt-8 pb-4 bg-[#f2f3fd] shadow-2xl shadow-blue-900/5 hidden lg:flex rounded-r-3xl transition-transform duration-300">
+<div class="px-8 mb-10">
+<div class="flex items-center gap-4 mb-2">
+<img class="w-12 h-12 rounded-2xl bg-primary-container p-0.5" data-alt="abstract clinical logo with blue geometric shapes representing connectivity and healthcare innovation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSnaJx3mtEKHCUYOMHLfitHOMWtMa4iYAZjfk-7sHhLcstDAsnAaY3HxF-Ie-4MpncN3EkHEzpeAHd622D5qFsIF7o11mB2t_saT33QlJ55B1jOH-9FjiCbIqoRn5WCVJgA1wfl9kKQZlKc6eD6YuKhwEKJeR5wfXekQmISpZwsAWMv1Qv-kzBgjda6kzm_Bb_BkmyNKHtEW4dsXWtv6RsUsLUCiKAgP6y1mEOlVsG8fzp_iL_7bTVtuuR9ZRTHRn4vaH80enZcFE"/>
+<div>
+<h2 class="font-manrope font-bold text-[#003d9b]">Dr. Sterling</h2>
+<p class="text-xs text-on-surface-variant">Senior Staff</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="bg-gradient-to-r from-[#003d9b] to-[#0052cc] text-white rounded-xl mx-2 px-4 py-3 shadow-lg flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-inter text-sm font-medium">Clinical Overview</span>
+</div>
+<div class="text-[#434654] px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-colors rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">group</span>
+<span class="font-inter text-sm font-medium">Doctors</span>
+</div>
+<div class="text-[#434654] px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-colors rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">person</span>
+<span class="font-inter text-sm font-medium">Patients</span>
+</div>
+<div class="text-[#434654] px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-colors rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-inter text-sm font-medium">Appointments</span>
+</div>
+<div class="text-[#434654] px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-colors rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-inter text-sm font-medium">Patient Analytics</span>
+</div>
+<div class="text-[#434654] px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-colors rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-inter text-sm font-medium">Revenue Reports</span>
+</div>
+<div class="mt-auto pt-10">
+<div class="text-[#434654] px-4 py-3 mx-2 flex items-center gap-3 hover:bg-white/50 transition-colors rounded-xl cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-inter text-sm font-medium">Settings</span>
+</div>
+</div>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:pl-72 pt-24 pb-20 px-6 min-h-screen">
+<div class="max-w-7xl mx-auto">
+<!-- Header Editorial Section -->
+<section class="mb-10">
+<h1 class="font-headline font-extrabold text-4xl text-primary tracking-tight mb-1">Clinical Overview</h1>
+<p class="font-label text-on-surface-variant font-medium">Welcome back, Dr. Sterling. Here’s a summary of today's hospital performance.</p>
+</section>
+<!-- Bento Stat Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-surface-container-lowest p-6 rounded-[2rem] ambient-shadow flex flex-col justify-between border-b-4 border-primary">
+<div class="flex items-center justify-between mb-4">
+<div class="p-3 bg-secondary-container rounded-2xl">
+<span class="material-symbols-outlined text-primary">medical_services</span>
+</div>
+<span class="text-xs font-bold text-primary bg-primary/5 px-2 py-1 rounded-lg">+12%</span>
+</div>
+<div>
+<p class="font-label text-sm text-on-surface-variant font-medium">Total Doctors</p>
+<h3 class="font-headline text-3xl font-extrabold">1.2k</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-[2rem] ambient-shadow flex flex-col justify-between border-b-4 border-secondary">
+<div class="flex items-center justify-between mb-4">
+<div class="p-3 bg-secondary-fixed rounded-2xl">
+<span class="material-symbols-outlined text-secondary">group</span>
+</div>
+<span class="text-xs font-bold text-secondary bg-secondary/5 px-2 py-1 rounded-lg">+4.5k</span>
+</div>
+<div>
+<p class="font-label text-sm text-on-surface-variant font-medium">Total Patients</p>
+<h3 class="font-headline text-3xl font-extrabold">8.5k</h3>
+</div>
+</div>
+<div class="bg-primary text-white p-6 rounded-[2rem] shadow-xl shadow-primary/20 flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-between mb-4">
+<div class="p-3 bg-white/20 rounded-2xl">
+<span class="material-symbols-outlined text-white">payments</span>
+</div>
+<span class="text-xs font-bold text-white bg-white/10 px-2 py-1 rounded-lg">Target: 95%</span>
+</div>
+<div>
+<p class="font-label text-sm text-on-primary-container font-medium">Today's Revenue</p>
+<h3 class="font-headline text-3xl font-extrabold">$4,200</h3>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-[2rem] ambient-shadow flex flex-col justify-between border-b-4 border-tertiary">
+<div class="flex items-center justify-between mb-4">
+<div class="p-3 bg-tertiary-fixed rounded-2xl">
+<span class="material-symbols-outlined text-tertiary">assignment_late</span>
+</div>
+<span class="text-xs font-bold text-error bg-error/5 px-2 py-1 rounded-lg">Action Required</span>
+</div>
+<div>
+<p class="font-label text-sm text-on-surface-variant font-medium">Pending Approvals</p>
+<h3 class="font-headline text-3xl font-extrabold">12</h3>
+</div>
+</div>
+</div>
+<!-- Main Data Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+<!-- User Growth Line Chart Placeholder -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-[2.5rem] p-8 ambient-shadow overflow-hidden">
+<div class="flex items-center justify-between mb-10">
+<div>
+<h2 class="font-headline text-2xl font-bold">User Growth</h2>
+<p class="text-xs text-on-surface-variant font-medium">Monthly registrations across all departments</p>
+</div>
+<select class="bg-surface-container-low border-none rounded-full px-4 text-xs font-bold text-primary focus:ring-0">
+<option>Last 6 Months</option>
+<option>Last 1 Year</option>
+</select>
+</div>
+<div class="h-64 flex items-end justify-between gap-2 px-2">
+<div class="flex-1 bg-surface-container-low rounded-t-2xl relative group cursor-pointer" style="height: 40%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] py-1 px-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity font-bold">420</div>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-2xl relative group cursor-pointer" style="height: 55%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] py-1 px-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity font-bold">580</div>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-2xl relative group cursor-pointer" style="height: 45%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] py-1 px-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity font-bold">490</div>
+</div>
+<div class="flex-1 bg-primary-container rounded-t-2xl relative group cursor-pointer" style="height: 80%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] py-1 px-2 rounded-lg opacity-100 font-bold">850</div>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-2xl relative group cursor-pointer" style="height: 65%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] py-1 px-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity font-bold">690</div>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-t-2xl relative group cursor-pointer" style="height: 90%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] py-1 px-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity font-bold">920</div>
+</div>
+</div>
+<div class="flex justify-between mt-4 px-2">
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Jan</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Feb</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Mar</span>
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Apr</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">May</span>
+<span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Jun</span>
+</div>
+</div>
+<!-- Notifications Panel -->
+<div class="bg-surface-container-lowest rounded-[2.5rem] p-8 ambient-shadow">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-2xl font-bold">Alerts</h2>
+<span class="p-2 bg-error-container text-error rounded-full material-symbols-outlined text-sm">priority_high</span>
+</div>
+<div class="space-y-6">
+<div class="flex gap-4 p-4 rounded-3xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-12 h-12 shrink-0 rounded-2xl bg-error/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+<div>
+<h4 class="text-sm font-bold leading-tight group-hover:text-primary transition-colors">Server Maintenance</h4>
+<p class="text-[11px] text-on-surface-variant font-medium mt-1">Scheduled database optimization at 2:00 AM.</p>
+<span class="text-[10px] font-bold text-outline mt-2 block">12 MIN AGO</span>
+</div>
+</div>
+<div class="flex gap-4 p-4 rounded-3xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-12 h-12 shrink-0 rounded-2xl bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person_add</span>
+</div>
+<div>
+<h4 class="text-sm font-bold leading-tight group-hover:text-primary transition-colors">New Doctor Request</h4>
+<p class="text-[11px] text-on-surface-variant font-medium mt-1">Dr. Elena Fisher applied for Cardiology.</p>
+<span class="text-[10px] font-bold text-outline mt-2 block">1 HR AGO</span>
+</div>
+</div>
+<div class="flex gap-4 p-4 rounded-3xl hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="w-12 h-12 shrink-0 rounded-2xl bg-secondary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#415382]">inventory_2</span>
+</div>
+<div>
+<h4 class="text-sm font-bold leading-tight group-hover:text-primary transition-colors">Supply Restock</h4>
+<p class="text-[11px] text-on-surface-variant font-medium mt-1">Critical supplies for ICU have arrived.</p>
+<span class="text-[10px] font-bold text-outline mt-2 block">3 HRS AGO</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 rounded-2xl bg-surface-container-high text-primary font-bold text-xs hover:bg-surface-container-highest transition-colors uppercase tracking-widest">View All Notifications</button>
+</div>
+</div>
+<!-- Bottom Data Section -->
+<div class="bg-surface-container-lowest rounded-[2.5rem] p-8 ambient-shadow">
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+<div>
+<h2 class="font-headline text-2xl font-bold">Revenue Overview</h2>
+<p class="text-xs text-on-surface-variant font-medium">Monthly revenue trends compared to last fiscal year</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low p-1.5 rounded-2xl">
+<button class="px-6 py-2 bg-white rounded-xl shadow-sm text-xs font-bold text-primary">Bar View</button>
+<button class="px-6 py-2 text-xs font-bold text-on-surface-variant hover:text-primary">Area View</button>
+</div>
+</div>
+<div class="relative h-48 w-full flex items-center justify-center">
+<img class="w-full h-full object-cover rounded-3xl opacity-30 grayscale" data-alt="modern abstract data visualization chart with flowing organic blue shapes and light grid lines on a sterile white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwXhYtRDhih8Smctv_TWX3BExzLIqq4EwWBWkAGB90y2XeOWDBVweME8WTtqTq6ItXAneWFkJypi8ilbCGr5XXt4dQqgcdMspwmHmbLkGUSZ8M_5Zb_hl9w7jQQu6S43M14lpvfASogVcOcFZETO1dWlH1WNyVjafEE7XQWUx8SSFm1Ocqd_oIlbH1PKIpIL2IDSzpnaAiJg9GD_Oou5OOVQgjREnTT9xis_T4aq1iMK5VuwTsD27kw9-4N5jAQtEUY2OV8BRXpIM"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="grid grid-cols-12 w-full h-full items-end gap-4 px-8">
+<div class="h-[60%] bg-primary/20 rounded-lg"></div>
+<div class="h-[45%] bg-primary/20 rounded-lg"></div>
+<div class="h-[75%] bg-primary/20 rounded-lg"></div>
+<div class="h-[55%] bg-primary/20 rounded-lg"></div>
+<div class="h-[85%] bg-primary/20 rounded-lg"></div>
+<div class="h-[95%] bg-primary rounded-lg shadow-lg shadow-primary/20"></div>
+<div class="h-[70%] bg-primary/20 rounded-lg"></div>
+<div class="h-[50%] bg-primary/20 rounded-lg"></div>
+<div class="h-[80%] bg-primary/20 rounded-lg"></div>
+<div class="h-[65%] bg-primary/20 rounded-lg"></div>
+<div class="h-[40%] bg-primary/20 rounded-lg"></div>
+<div class="h-[30%] bg-primary/20 rounded-lg"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-8 mt-12 pt-8 border-t border-surface-variant/50">
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Total Gross</p>
+<h4 class="text-xl font-extrabold text-primary">$1.24M</h4>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Profit Margin</p>
+<h4 class="text-xl font-extrabold text-primary">24.8%</h4>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-1">Growth Rate</p>
+<h4 class="text-xl font-extrabold text-[#7b2600]">+5.2%</h4>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom NavBar Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-t-[2rem] shadow-[0px_-8px_24px_rgba(25,27,34,0.04)]">
+<div class="flex flex-col items-center justify-center text-[#003d9b] dark:text-blue-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home_health</span>
+<span class="font-inter text-[10px] font-semibold uppercase tracking-wider">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#c3c6d6] dark:text-slate-600">
+<span class="material-symbols-outlined">group</span>
+<span class="font-inter text-[10px] font-semibold uppercase tracking-wider">Patients</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#c3c6d6] dark:text-slate-600">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-inter text-[10px] font-semibold uppercase tracking-wider">Stats</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#c3c6d6] dark:text-slate-600">
+<span class="material-symbols-outlined">notifications</span>
+<span class="font-inter text-[10px] font-semibold uppercase tracking-wider">Alerts</span>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,23 @@
+{
+  "success": true,
+  "message": "User growth statistics retrieved successfully",
+  "data": [
+    {
+      "year": 2026,
+      "quarter": 1,
+      "quarterName": "Q1",
+      "newPatients": 150,
+      "newDoctors": 10,
+      "totalNewUsers": 160
+    },
+    {
+      "year": 2026,
+      "quarter": 2,
+      "quarterName": "Q2",
+      "newPatients": 200,
+      "newDoctors": 15,
+      "totalNewUsers": 215
+    }
+  ],
+  "errors": null
+}

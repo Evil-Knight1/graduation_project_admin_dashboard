@@ -7,7 +7,7 @@ ThemeData buildAppTheme() {
     seedColor: AppConstants.primary,
     primary: AppConstants.primary,
     secondary: AppConstants.secondary,
-    background: AppConstants.background,
+    surface: AppConstants.background,
   );
 
   return base.copyWith(
@@ -16,7 +16,7 @@ ThemeData buildAppTheme() {
     cardTheme: const CardThemeData(
       elevation: 0,
       margin: EdgeInsets.zero,
-      color: AppConstants.cardBackground,
+      color: AppConstants.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(16)),
       ),

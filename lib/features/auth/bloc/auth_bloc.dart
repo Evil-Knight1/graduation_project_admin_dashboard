@@ -37,10 +37,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final Either<Failure, AuthResponse> result =
         await repository.login(email: event.email, password: event.password);
 
-    result.fold(
-      (failure) => emit(AuthState.error(_formatFailure(failure))),
+    await result.fold(
+      (failure) async => emit(AuthState.error(_formatFailure(failure))),
       (auth) async {
-        await storage.saveTokens(token: auth.token, refreshToken: auth.refreshToken);
+        await storage.saveTokens(
+            token: auth.token, refreshToken: auth.refreshToken);
         emit(const AuthState.authenticated());
       },
     );

@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import '../../../core/failure.dart';
 import '../../../models/api_response.dart';
 import '../../../models/doctor.dart';
@@ -96,34 +97,22 @@ class DoctorsRepository {
     }
   }
 
-  Future<Either<Failure, bool>> createDoctor({
-    required String fullName,
-    required String email,
-    required String phone,
-    required String password,
-    required String licenseNumber,
-    String? specialization,
-    String? bio,
-    int? yearsOfExperience,
-    String? clinicAddress,
-    String? hospital,
-  }) async {
+  Future<Either<Failure, List<String>>> fetchSpecializations() async {
     try {
-      final response = await api.post('/api/Auth/register/doctor', data: {
-        'fullName': fullName,
-        'email': email,
-        'phone': phone,
-        'password': password,
-        'licenseNumber': licenseNumber,
-        'specialization': specialization,
-        'bio': bio,
-        'yearsOfExperience': yearsOfExperience,
-        'clinicAddress': clinicAddress,
-        'hospital': hospital,
-      });
+      final response = await api.get('/api/Doctor/specializations');
+      if (response.data is! Map<String, dynamic>) {
+        return Left(Failure(message: 'Invalid response from server.'));
+      }
+      final parsed = ApiResponse<List<dynamic>>.fromJson(
+        response.data as Map<String, dynamic>,
+        (data) => data as List<dynamic>,
+      );
 
-      return _booleanResponse(response.data,
-          fallbackMessage: 'Failed to add doctor.');
+      if (parsed.success && parsed.data != null) {
+        return Right(parsed.data!.map((e) => e.toString()).toList());
+      }
+      return Left(Failure(
+          message: parsed.message ?? 'Failed to load specializations.'));
     } on DioException catch (e) {
       return Left(Failure.fromDio(e));
     } catch (e) {
@@ -131,8 +120,55 @@ class DoctorsRepository {
     }
   }
 
-  Either<Failure, bool> _booleanResponse(dynamic data,
-      {String? fallbackMessage}) {
+  Future<Either<Failure, bool>> createDoctor({
+    required String fullName,
+    required String email,
+    required String phone,
+    required String password,
+    required String licenseNumber,
+    List<String>? specializations,
+    String? bio,
+    int? yearsOfExperience,
+    String? clinicAddress,
+    String? hospital,
+  }) async {
+    try {
+      debugPrint("Creating doctor...");
+      debugPrint('fullName: $fullName');
+      debugPrint('email: $email');
+      debugPrint('phone: $phone');
+      debugPrint('password: $password');
+      debugPrint('licenseNumber: $licenseNumber');
+      debugPrint('specializations: $specializations');
+      debugPrint('bio: $bio');
+      debugPrint('yearsOfExperience: $yearsOfExperience');
+      debugPrint('clinicAddress: $clinicAddress');
+      debugPrint('hospital: $hospital');
+      final response = await api.post('/api/Auth/register/doctor', data: {
+        'fullName': fullName,
+        'email': email,
+        'phone': phone,
+        'password': password,
+        'licenseNumber': licenseNumber,
+        'specialization': specializations
+            ?.join(', '), // Send as comma separated if backend expects string
+        'bio': bio,
+        'yearsOfExperience': yearsOfExperience,
+        'clinicAddress': clinicAddress,
+        'hospital': hospital,
+      });
+
+      return _booleanResponse(response.data);
+    } on DioException catch (e) {
+      debugPrint(e.response!.data.toString());
+      return Left(Failure.fromDio(e));
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  Either<Failure, bool> _booleanResponse(dynamic data) {
     if (data is! Map<String, dynamic>) {
       return Left(Failure(message: 'Invalid response from server.'));
     }
@@ -143,7 +179,12 @@ class DoctorsRepository {
     if (parsed.success) {
       return Right(parsed.data == true);
     }
-    return Left(Failure(
-        message: parsed.message ?? fallbackMessage ?? 'Operation failed.'));
+
+    String errorMsg = parsed.message ?? 'Failed to add doctor.';
+    if (parsed.errors != null && parsed.errors!.isNotEmpty) {
+      errorMsg = parsed.errors!.join('\n');
+    }
+    debugPrint(errorMsg);
+    return Left(Failure(message: errorMsg));
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation_project_admin_dashboard/core/constants.dart';
 import 'package:intl/intl.dart';
 import '../../../core/responsive.dart';
 import '../../../models/appointment.dart';
@@ -44,77 +46,96 @@ class _BookingsPageState extends State<BookingsPage> {
         final formatter = DateFormat('MMM dd, HH:mm');
 
         return Padding(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(24.r),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'Appointments',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 22.sp, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               if (state.status == AppointmentsStatus.updating)
-                const LinearProgressIndicator(minHeight: 2),
-              const SizedBox(height: 8),
+                LinearProgressIndicator(minHeight: 2.h),
+              SizedBox(height: 8.h),
               Expanded(
-                child: isDesktop
-                    ? DataTable(
-                        columns: const [
-                          DataColumn(label: Text('Patient')),
-                          DataColumn(label: Text('Doctor')),
-                          DataColumn(label: Text('Time')),
-                          DataColumn(label: Text('Status')),
-                          DataColumn(label: Text('Action')),
-                        ],
-                        rows: state.appointments.map((appointment) {
-                          return DataRow(cells: [
-                            DataCell(Text(appointment.patientName)),
-                            DataCell(Text(appointment.doctorName)),
-                            DataCell(Text(
-                              '${formatter.format(appointment.startTime)} - ${formatter.format(appointment.endTime)}',
-                            )),
-                            DataCell(StatusChip(status: appointment.status)),
-                            DataCell(_StatusAction(
-                              appointment: appointment,
-                              onChanged: (status) {
-                                context.read<AppointmentsBloc>().add(
-                                      AppointmentStatusChanged(
-                                        id: appointment.id,
-                                        status: status,
-                                      ),
-                                    );
-                              },
-                            )),
-                          ]);
-                        }).toList(),
-                      )
-                    : ListView.separated(
-                        itemCount: state.appointments.length,
-                        separatorBuilder: (_, __) => const SizedBox(height: 12),
-                        itemBuilder: (context, index) {
-                          final appointment = state.appointments[index];
-                          return Card(
-                            child: ListTile(
-                              title: Text(appointment.patientName),
-                              subtitle: Text(
-                                '${appointment.doctorName}\n${formatter.format(appointment.startTime)}',
-                              ),
-                              isThreeLine: true,
-                              trailing: _StatusAction(
-                                appointment: appointment,
-                                onChanged: (status) {
-                                  context.read<AppointmentsBloc>().add(
-                                        AppointmentStatusChanged(
-                                          id: appointment.id,
-                                          status: status,
-                                        ),
-                                      );
-                                },
-                              ),
+                child: state.appointments.isEmpty
+                    ? Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.calendar_today_outlined,
+                                size: 64.r, color: AppConstants.outline),
+                            SizedBox(height: 16.h),
+                            Text(
+                              'No appointments found',
+                              style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppConstants.textSecondary),
                             ),
-                          );
-                        },
-                      ),
+                          ],
+                        ),
+                      )
+                    : isDesktop
+                        ? DataTable(
+                            columns: const [
+                              DataColumn(label: Text('Patient')),
+                              DataColumn(label: Text('Doctor')),
+                              DataColumn(label: Text('Time')),
+                              DataColumn(label: Text('Status')),
+                              DataColumn(label: Text('Action')),
+                            ],
+                            rows: state.appointments.map((appointment) {
+                              return DataRow(cells: [
+                                DataCell(Text(appointment.patientName)),
+                                DataCell(Text(appointment.doctorName)),
+                                DataCell(Text(
+                                  '${formatter.format(appointment.startTime)} - ${formatter.format(appointment.endTime)}',
+                                )),
+                                DataCell(
+                                    StatusChip(status: appointment.status)),
+                                DataCell(_StatusAction(
+                                  appointment: appointment,
+                                  onChanged: (status) {
+                                    context.read<AppointmentsBloc>().add(
+                                          AppointmentStatusChanged(
+                                            id: appointment.id,
+                                            status: status,
+                                          ),
+                                        );
+                                  },
+                                )),
+                              ]);
+                            }).toList(),
+                          )
+                        : ListView.separated(
+                            itemCount: state.appointments.length,
+                            separatorBuilder: (_, __) => SizedBox(height: 12.h),
+                            itemBuilder: (context, index) {
+                              final appointment = state.appointments[index];
+                              return Card(
+                                child: ListTile(
+                                  title: Text(appointment.patientName),
+                                  subtitle: Text(
+                                    '${appointment.doctorName}\n${formatter.format(appointment.startTime)}',
+                                  ),
+                                  isThreeLine: true,
+                                  trailing: _StatusAction(
+                                    appointment: appointment,
+                                    onChanged: (status) {
+                                      context.read<AppointmentsBloc>().add(
+                                            AppointmentStatusChanged(
+                                              id: appointment.id,
+                                              status: status,
+                                            ),
+                                          );
+                                    },
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
               ),
             ],
           ),
@@ -132,22 +153,43 @@ class _StatusAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<AppointmentStatus>(
-      value: appointment.status,
-      underline: const SizedBox.shrink(),
-      items: AppointmentStatus.values
-          .map(
-            (status) => DropdownMenuItem(
-              value: status,
-              child: Text(status.label),
-            ),
-          )
-          .toList(),
-      onChanged: (value) {
-        if (value != null) {
-          onChanged(value);
-        }
-      },
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+      decoration: BoxDecoration(
+        color: appointment.status.color.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(
+          color: appointment.status.color.withValues(alpha: 0.2),
+        ),
+      ),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<AppointmentStatus>(
+          value: appointment.status,
+          icon: Icon(Icons.keyboard_arrow_down_rounded,
+              size: 18.r, color: appointment.status.color),
+          elevation: 8,
+          style: TextStyle(
+            color: appointment.status.color,
+            fontWeight: FontWeight.bold,
+            fontSize: 13.sp,
+          ),
+          dropdownColor: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+          items: AppointmentStatus.values
+              .map(
+                (status) => DropdownMenuItem(
+                  value: status,
+                  child: Text(status.label),
+                ),
+              )
+              .toList(),
+          onChanged: (value) {
+            if (value != null) {
+              onChanged(value);
+            }
+          },
+        ),
+      ),
     );
   }
 }

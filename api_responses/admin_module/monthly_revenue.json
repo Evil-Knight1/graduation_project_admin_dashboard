@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "message": "Monthly revenue retrieved successfully",
+  "data": [
+    {
+      "year": 2026,
+      "month": 1,
+      "monthName": "January",
+      "revenue": 5000.00
+    },
+    {
+      "year": 2026,
+      "month": 2,
+      "monthName": "February",
+      "revenue": 5500.00
+    },
+    {
+      "year": 2026,
+      "month": 3,
+      "monthName": "March",
+      "revenue": 6000.00
+    }
+  ],
+  "errors": null
+}

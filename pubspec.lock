@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
+  circle_flags:
+    dependency: transitive
+    description:
+      name: circle_flags
+      sha256: d83ec86d7a24633b633af5f11a9c49ea4aa5ef97c435a0739b5d72de27f9c20d
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.3"
   clock:
     dependency: transitive
     description:
@@ -65,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.7"
+  dart_countries:
+    dependency: transitive
+    description:
+      name: dart_countries
+      sha256: "9bfc266284bfedd88226a32903781ab237020c7d9bf0089da288c6d677b192bc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   dartz:
     dependency: "direct main"
     description:
@@ -150,6 +166,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "8239210dd68bee6b0577aa4a090890342d04a136ce1c81f98ee513fc0ce891de"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.9.3"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -208,6 +232,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: "direct main"
+    description:
+      name: fluttertoast
+      sha256: "144ddd74d49c865eba47abe31cbc746c7b311c82d6c32e571fd73c4264b740e2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.0.0"
   glob:
     dependency: transitive
     description:
@@ -292,10 +324,10 @@ packages:
     dependency: transitive
     description:
       name: matcher
-      sha256: "12956d0ad8390bbcc63ca2e1469c0619946ccb52809807067a7020d57e647aa6"
+      sha256: dc0b7dc7651697ea4ff3e69ef44b0407ea32c487a39fff6a4004fa585e901861
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.18"
+    version: "0.12.19"
   material_color_utilities:
     dependency: transitive
     description:
@@ -400,6 +432,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  phone_form_field:
+    dependency: "direct main"
+    description:
+      name: phone_form_field
+      sha256: "666cd7669822870b44fb4dd53c27608d6cf602bc32493886a90fee7f084b44ff"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
+  phone_number_metadata:
+    dependency: transitive
+    description:
+      name: phone_number_metadata
+      sha256: "5a20627c3e824704028612593f09cdcdc761574cf422b4d70754da1494c47bd3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
+  phone_numbers_parser:
+    dependency: transitive
+    description:
+      name: phone_numbers_parser
+      sha256: a4508a1ac37c8fcf2be2c6672012721de5ae39be959ef1c7641532502a532a46
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   platform:
     dependency: transitive
     description:
@@ -481,10 +537,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: "93167629bfc610f71560ab9312acdda4959de4df6fac7492c89ff0d3886f6636"
+      sha256: "949a932224383300f01be9221c39180316445ecb8e7547f70a41a35bf421fb9e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.9"
+    version: "0.7.11"
   typed_data:
     dependency: transitive
     description:

@@ -1,4 +1,4 @@
-enum AppSection { dashboard, doctors, bookings }
+enum AppSection { dashboard, doctors, patients, patientAnalytics, bookings }
 
 extension AppSectionX on AppSection {
   String get title {
@@ -7,6 +7,10 @@ extension AppSectionX on AppSection {
         return 'Dashboard';
       case AppSection.doctors:
         return 'Doctors';
+      case AppSection.patients:
+        return 'Patients';
+      case AppSection.patientAnalytics:
+        return 'Patient Analytics';
       case AppSection.bookings:
         return 'Bookings';
     }

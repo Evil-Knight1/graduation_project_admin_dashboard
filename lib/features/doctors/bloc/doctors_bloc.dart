@@ -20,6 +20,7 @@ class DoctorsBloc extends Bloc<DoctorsEvent, DoctorsState> {
     on<DoctorDeleted>(_onDeleted);
     on<DoctorCreated>(_onCreated);
     on<DoctorUpdated>(_onUpdated);
+    on<SpecializationsFetched>(_onSpecializationsFetched);
   }
 
   Future<void> _onFetched(
@@ -110,7 +111,7 @@ class DoctorsBloc extends Bloc<DoctorsEvent, DoctorsState> {
       phone: event.phone,
       password: event.password,
       licenseNumber: event.licenseNumber,
-      specialization: event.specialization,
+      specializations: event.specializations,
       bio: event.bio,
       yearsOfExperience: event.yearsOfExperience,
       clinicAddress: event.clinicAddress,
@@ -136,6 +137,17 @@ class DoctorsBloc extends Bloc<DoctorsEvent, DoctorsState> {
       (_) => emit(state.copyWith(actionInProgress: false)),
     );
     add(DoctorsFetched(pageNumber: state.pageNumber, pageSize: state.pageSize));
+  }
+
+  Future<void> _onSpecializationsFetched(
+    SpecializationsFetched event,
+    Emitter<DoctorsState> emit,
+  ) async {
+    final result = await repository.fetchSpecializations();
+    result.fold(
+      (failure) => emit(state.copyWith(message: _formatFailure(failure))),
+      (specializations) => emit(state.copyWith(specializations: specializations)),
+    );
   }
 
   String _formatFailure(Failure failure) {

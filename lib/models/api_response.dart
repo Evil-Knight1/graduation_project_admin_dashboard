@@ -19,7 +19,26 @@ class ApiResponse<T> {
       success: json['success'] == true,
       message: json['message'] as String?,
       data: json['data'] != null ? fromData(json['data']) : null,
-      errors: (json['errors'] as List?)?.map((e) => e.toString()).toList(),
+      errors: _parseErrors(json['errors']),
     );
+  }
+
+  static List<String>? _parseErrors(dynamic errors) {
+    if (errors == null) return null;
+    if (errors is List) {
+      return errors.map((e) => e.toString()).toList();
+    }
+    if (errors is Map) {
+      final list = <String>[];
+      errors.forEach((key, value) {
+        if (value is List) {
+          list.addAll(value.map((e) => e.toString()));
+        } else {
+          list.add(value.toString());
+        }
+      });
+      return list;
+    }
+    return [errors.toString()];
   }
 }

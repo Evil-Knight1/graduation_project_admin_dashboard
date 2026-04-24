@@ -1,0 +1,6 @@
+{
+  "success": true,
+  "message": "Unread notifications count retrieved successfully",
+  "data": 5,
+  "errors": null
+}

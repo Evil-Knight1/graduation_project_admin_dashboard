@@ -57,7 +57,7 @@ class DoctorCreated extends DoctorsEvent {
   final String phone;
   final String password;
   final String licenseNumber;
-  final String? specialization;
+  final List<String>? specializations;
   final String? bio;
   final int? yearsOfExperience;
   final String? clinicAddress;
@@ -69,7 +69,7 @@ class DoctorCreated extends DoctorsEvent {
     required this.phone,
     required this.password,
     required this.licenseNumber,
-    this.specialization,
+    this.specializations,
     this.bio,
     this.yearsOfExperience,
     this.clinicAddress,
@@ -83,13 +83,15 @@ class DoctorCreated extends DoctorsEvent {
         phone,
         password,
         licenseNumber,
-        specialization,
+        specializations,
         bio,
         yearsOfExperience,
         clinicAddress,
         hospital,
       ];
 }
+
+class SpecializationsFetched extends DoctorsEvent {}
 
 class DoctorUpdated extends DoctorsEvent {
   final Doctor doctor;

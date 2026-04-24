@@ -21,23 +21,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   ) async {
     emit(const DashboardState.loading());
     final Either<Failure, DashboardStats> result = await repository.fetchStats();
-    result.fold(
-      (failure) => emit(DashboardState.error(_formatFailure(failure))),
-      (stats) {
-        final safeStats = stats.trends.isEmpty
-            ? DashboardStats(
-                totalDoctors: stats.totalDoctors,
-                activeBookings: stats.activeBookings,
-                totalPatients: stats.totalPatients,
-                revenue: stats.revenue,
-                trends: List.generate(7, (index) {
-                  final date = DateTime.now().subtract(Duration(days: 6 - index));
-                  return BookingTrend(date: date, count: 0);
-                }),
-              )
-            : stats;
-        emit(DashboardState.loaded(safeStats));
-      },
+    await result.fold(
+      (failure) async => emit(DashboardState.error(_formatFailure(failure))),
+      (stats) async => emit(DashboardState.loaded(stats)),
     );
   }
 

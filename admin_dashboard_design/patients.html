@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patient Directory | GradProject Medical Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#191b22",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#dae2ff",
+                        "on-secondary-fixed": "#021945",
+                        "inverse-primary": "#b2c5ff",
+                        "primary-container": "#0052cc",
+                        "inverse-surface": "#2e3038",
+                        "secondary-fixed": "#dae2ff",
+                        "surface-container-high": "#e7e7f1",
+                        "surface": "#faf8ff",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "background": "#faf8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d9d9e3",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary-container": "#415382",
+                        "surface-container-low": "#f2f3fd",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "on-primary-fixed": "#001848",
+                        "outline": "#737685",
+                        "on-tertiary-fixed": "#380d00",
+                        "on-surface": "#191b22",
+                        "on-error": "#ffffff",
+                        "tertiary": "#7b2600",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "on-primary-container": "#c4d2ff",
+                        "tertiary-fixed": "#ffdbcf",
+                        "tertiary-container": "#a33500",
+                        "surface-tint": "#0c56d0",
+                        "surface-container": "#ededf7",
+                        "on-surface-variant": "#434654",
+                        "outline-variant": "#c3c6d6",
+                        "on-secondary-fixed-variant": "#344573",
+                        "secondary-fixed-dim": "#b4c5fb",
+                        "secondary-container": "#b6c8fe",
+                        "surface-variant": "#e1e2ec",
+                        "on-tertiary-container": "#ffc6b2",
+                        "on-tertiary-fixed-variant": "#812800",
+                        "secondary": "#4c5d8d",
+                        "on-secondary": "#ffffff",
+                        "primary": "#003d9b",
+                        "inverse-on-surface": "#f0f0fa",
+                        "surface-container-highest": "#e1e2ec"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .shadow-clinical {
+            box-shadow: 0px 24px 48px rgba(25, 27, 34, 0.06);
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .headline { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface selection:bg-primary-fixed">
+<div class="flex min-h-screen">
+<!-- NavigationDrawer (Shared Component) -->
+<aside class="h-screen w-72 left-0 top-0 fixed bg-[#f2f3fd] dark:bg-slate-900 flex flex-col pt-10 border-none z-50">
+<div class="text-[#003d9b] font-bold text-lg mb-8 px-6">GradProject</div>
+<div class="px-6 mb-8 flex items-center gap-4">
+<img class="w-12 h-12 rounded-full object-cover" data-alt="Professional portrait of a male doctor in clinical attire with a confident and friendly expression in a modern office" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiUtpwLbe6aDZT-JjFXcIw-_eOjxcf0bzeUp6p2TiPlr3PF-OmYSbNBT7OUUU2TlqoXG-kIELmrSONFah89Gz-H55gQOYRcku6vlUuRGW5fQmeYNxCiikO04bvmutv1HHWFfWza9jIEcEV-0wzkgXVEkx-Fr1D3O4axWOOKwTt4IjmDbAMfoLovEro5I464o0SZT0djuipOY_A7R9VJAHRaGjyHsTtMAFD7hixPIjAw8YYPTPzFh5iiLYVV8dlXPc00BfiJMAYRPs"/>
+<div>
+<p class="font-headline font-bold text-on-surface text-sm">Dr. Julian Vane</p>
+<p class="text-xs text-on-surface-variant">Chief Administrator</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col">
+<a class="flex items-center gap-4 py-4 px-6 text-[#434654] hover:text-[#003d9b] transition-colors font-['Inter'] text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Clinical Overview
+                </a>
+<!-- Active Tab: Patient Registry -->
+<a class="flex items-center gap-4 py-4 px-6 text-[#003d9b] dark:text-blue-300 font-bold bg-[#ffffff] dark:bg-slate-800 rounded-l-full shadow-sm font-['Inter'] text-sm tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+                    Patient Registry
+                </a>
+<a class="flex items-center gap-4 py-4 px-6 text-[#434654] hover:text-[#003d9b] transition-colors font-['Inter'] text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                    Apppointments
+                </a>
+<a class="flex items-center gap-4 py-4 px-6 text-[#434654] hover:text-[#003d9b] transition-colors font-['Inter'] text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                    Medical Reports
+                </a>
+<a class="flex items-center gap-4 py-4 px-6 mt-auto mb-10 text-[#434654] hover:text-[#003d9b] transition-colors font-['Inter'] text-sm font-medium tracking-wide" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    System Settings
+                </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-72 relative">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-[#faf8ff] transition-colors duration-300 flex justify-between items-center px-10 h-28 w-full sticky top-0 z-40">
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="menu">menu</span>
+<h1 class="font-['Manrope'] font-extrabold text-3xl tracking-tight text-[#003d9b]">Patient Directory</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold text-primary uppercase tracking-widest">Active Database</p>
+<p class="text-on-surface-variant text-sm">1,248 Records</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-fixed" data-alt="Doctor in medical scrubs looking at digital tablet in a clean bright hospital environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVe_4j3zhgI_p3vVyfYl7V-Ul3q9XxnH4Wsi_eu7TYfiEWF49jTcBAbASDwj9Dp-SHeZmQY-bklsOo2O6ZBTx4kzSb5HfrT4mdOJBWjoxzGd9nm_L0vp0BBuC_a8diGvPt3tHvZh1XCfFuZ9wsxPIaxKvdqgmG46rjMrcDl8KqTDGHpxN2DRcF_0UWZqlp-waNVnZLb9qspJWSPc9sGeV-7wcfzdXCSzt9FdiHZkdL0d1Zq5rancYNYh2pC264H-2VFXkwSOM22PE"/>
+</div>
+</header>
+<div class="px-10 pb-20">
+<!-- Search & Filters Layer -->
+<section class="mb-12">
+<div class="bg-surface-container-low p-1 rounded-full flex items-center shadow-clinical max-w-4xl">
+<div class="flex-1 flex items-center px-6 gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface w-full py-4 font-body" placeholder="Search by Patient Name, ID, or Phone..." type="text"/>
+</div>
+<div class="h-10 w-px bg-outline-variant opacity-30"></div>
+<button class="flex items-center gap-2 px-8 py-4 text-primary font-bold hover:bg-white/50 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+                            Filter
+                        </button>
+<button class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-full font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+                            Search Records
+                        </button>
+</div>
+</section>
+<!-- Patient Grid - Asymmetric Layout -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+<!-- Patient Card 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-full shadow-clinical group hover:translate-y-[-4px] transition-all">
+<div class="flex items-start justify-between">
+<div class="flex gap-6">
+<img class="w-20 h-20 rounded-full object-cover" data-alt="Close up portrait of a middle aged woman with a calm expression in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJeuUsacPZWLXjTwXvOcmJVbJtcsT2FFlDO0E4TmYOtgKEwZ4k8FE_6RJbb-3_Mo8MCKKQiSSeiY_Ht6iUdRDXDglqvxAj75Dh_6scbMbp5z068dNI3NpS4ehqRE9NwlO_6iHDfUlvPZ7qRU_5qdQ3wvLcNqYTvCKM8EQgQqRI4f_XZvTwqTPRT2DclS9nGSWfILxUP4vJPlp24jWjFd1gTmLunH-dQ0M6eP84SDhj2AJGeZjwuf1imIjeMxkHQtQY0RTC_p5CAfg"/>
+<div>
+<h3 class="headline text-xl font-extrabold text-on-surface mb-1">Eleanor Shellstrop</h3>
+<p class="text-xs font-bold text-outline uppercase tracking-wider mb-4">Patient ID: #PX-9921</p>
+<div class="flex flex-wrap gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="mail">mail</span>
+                                            e.shellstrop@email.com
+                                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="call">call</span>
+                                            (555) 012-3456
+                                        </div>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter">In Progress</span>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-4 border-t border-surface-variant/30 pt-8">
+<div>
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest">Registration Date</p>
+<p class="text-on-surface font-semibold">Oct 12, 2023</p>
+</div>
+<div>
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest">Appointments</p>
+<p class="text-on-surface font-semibold">08 Booked</p>
+</div>
+</div>
+<div class="mt-8 flex justify-end gap-4">
+<button class="bg-surface-container-high text-primary px-6 py-2.5 rounded-full text-sm font-bold hover:bg-primary hover:text-white transition-all">
+                                View Profile
+                            </button>
+<button class="text-error border-2 border-error/10 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-error-container transition-all">
+                                Delete User
+                            </button>
+</div>
+</div>
+<!-- Patient Card 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-full shadow-clinical group hover:translate-y-[-4px] transition-all">
+<div class="flex items-start justify-between">
+<div class="flex gap-6">
+<img class="w-20 h-20 rounded-full object-cover" data-alt="Headshot of a smiling young man in professional attire against a blurred architectural background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_d6x5MCBq9O_JP3xI-lVfpuduVl7RBZz4y4mPqY8mfZ1i5klJr_qiPNZeqwKGg5QqROKrWBwXjO97hBSt1cy5q0EetngS0HlkOzIfcM7SsbVZQT7TL0LQOBU74cVhCopR8uwu6-Ig4QDwXHCMPZJosw02uvfNBcIkRtQl-xSC3Tu1zcPrTyTH4hC0sVkZ3w5U5ioo_7qxvJk2m6Qlf-L3UQ8VvZxwmnVCtX-dvpwPDhuJTxt-lCIgAK12qQhKFGpPhOU059WNcJk"/>
+<div>
+<h3 class="headline text-xl font-extrabold text-on-surface mb-1">Chidi Anagonye</h3>
+<p class="text-xs font-bold text-outline uppercase tracking-wider mb-4">Patient ID: #PX-8842</p>
+<div class="flex flex-wrap gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="mail">mail</span>
+                                            c.anagonye@university.edu
+                                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="call">call</span>
+                                            (555) 987-6543
+                                        </div>
+</div>
+</div>
+</div>
+<div class="text-right">
+<span class="bg-error-container text-on-error-container px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter">Urgent Review</span>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-2 gap-4 border-t border-surface-variant/30 pt-8">
+<div>
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest">Registration Date</p>
+<p class="text-on-surface font-semibold">Jan 05, 2024</p>
+</div>
+<div>
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest">Appointments</p>
+<p class="text-on-surface font-semibold">03 Booked</p>
+</div>
+</div>
+<div class="mt-8 flex justify-end gap-4">
+<button class="bg-surface-container-high text-primary px-6 py-2.5 rounded-full text-sm font-bold hover:bg-primary hover:text-white transition-all">
+                                View Profile
+                            </button>
+<button class="text-error border-2 border-error/10 px-6 py-2.5 rounded-full text-sm font-bold hover:bg-error-container transition-all">
+                                Delete User
+                            </button>
+</div>
+</div>
+<!-- Patient Card 3 -->
+<div class="bg-surface-container-lowest p-8 rounded-full shadow-clinical xl:col-span-2 group hover:translate-y-[-4px] transition-all">
+<div class="flex flex-col md:flex-row items-start justify-between gap-8">
+<div class="flex gap-6">
+<div class="relative">
+<img class="w-20 h-20 rounded-full object-cover" data-alt="Portrait of a young Asian woman with a gentle smile wearing casual knitwear in soft bright studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmOKUvQ5q6L4aU7fVFXYe5wVrPsrCqA0PHXMQ-o4gCKFCx6Shotu6Rp6YbKOnUlXd7XA-eT2PRZDwQvFMVVNstFEGmLxbM8dvCREDouJCOFppkTPg-YsaqfWnm2wH45u0oLlrdwyviuqe3dxsuBSDncJYjPyf69t9EfVO6ioJJ5gmU9p6vqDVA2wfV_MT_jpqJsGI3SYNuoUN8f3esCMk4SfV7nzyFvUDVqzja44WGRj7cBnFXJYE2qDxvVadmV_dKziC_BJdvX-M"/>
+<div class="absolute -bottom-2 -right-2 bg-primary text-on-primary p-1 rounded-full border-4 border-surface-container-lowest">
+<span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<div>
+<h3 class="headline text-xl font-extrabold text-on-surface mb-1">Tahani Al-Jamil</h3>
+<p class="text-xs font-bold text-outline uppercase tracking-wider mb-4">Patient ID: #PX-7711</p>
+<div class="flex flex-wrap gap-6">
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="mail">mail</span>
+                                            tahani.aj@charity.org
+                                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="call">call</span>
+                                            (555) 246-8101
+                                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="location_on">location_on</span>
+                                            Beverly Hills, CA
+                                        </div>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:items-end justify-between self-stretch">
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter">Follow-up Scheduled</span>
+<div class="flex gap-4 mt-6 md:mt-0">
+<button class="bg-surface-container-high text-primary px-8 py-3 rounded-full text-sm font-bold hover:bg-primary hover:text-white transition-all shadow-sm">
+                                        View Profile
+                                    </button>
+<button class="text-error border-2 border-error/10 px-8 py-3 rounded-full text-sm font-bold hover:bg-error-container transition-all">
+                                        Delete User
+                                    </button>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-surface-variant/30 flex justify-between items-center">
+<div class="flex gap-12">
+<div>
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-1">Registration</p>
+<p class="text-on-surface font-semibold">Mar 18, 2023</p>
+</div>
+<div>
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-1">Appointments</p>
+<p class="text-on-surface font-semibold text-xl">14</p>
+</div>
+<div>
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest mb-1">Last Visit</p>
+<p class="text-on-surface font-semibold">2 days ago</p>
+</div>
+</div>
+<div class="hidden lg:block text-right">
+<p class="text-xs text-outline italic">Assigned to: Dr. Michael Realman</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Destructive Action Area -->
+<section class="mt-16 bg-error-container/20 p-10 rounded-full flex flex-col md:flex-row items-center justify-between gap-6 border border-error/5">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 bg-error-container rounded-full flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-4xl" data-icon="warning">warning</span>
+</div>
+<div>
+<h4 class="headline font-bold text-on-error-container text-xl">System Maintenance &amp; Cleanup</h4>
+<p class="text-on-surface-variant text-sm max-w-lg">Perform clinical data purging. This action will permanently remove all patient records and history from the local database. Proceed with extreme caution.</p>
+</div>
+</div>
+<button class="bg-error text-on-error px-10 py-5 rounded-full font-extrabold flex items-center gap-3 shadow-xl shadow-error/20 hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="delete_sweep">delete_sweep</span>
+                        Clear All Data
+                    </button>
+</section>
+</div>
+<!-- Floating Action Button Contextual (Add New Patient) -->
+<button class="fixed bottom-12 right-12 w-16 h-16 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:rotate-90 transition-all duration-300 group z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+<span class="absolute right-20 bg-primary text-white px-4 py-2 rounded-xl text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                    Register New Patient
+                </span>
+</button>
+</main>
+</div>
+</body></html>

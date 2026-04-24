@@ -5,6 +5,7 @@ enum DoctorsStatus { initial, loading, loaded, error }
 class DoctorsState extends Equatable {
   final DoctorsStatus status;
   final List<Doctor> doctors;
+  final List<String> specializations;
   final int totalCount;
   final int pageNumber;
   final int pageSize;
@@ -14,6 +15,7 @@ class DoctorsState extends Equatable {
   const DoctorsState({
     this.status = DoctorsStatus.initial,
     this.doctors = const [],
+    this.specializations = const [],
     this.totalCount = 0,
     this.pageNumber = 1,
     this.pageSize = 10,
@@ -24,6 +26,7 @@ class DoctorsState extends Equatable {
   DoctorsState copyWith({
     DoctorsStatus? status,
     List<Doctor>? doctors,
+    List<String>? specializations,
     int? totalCount,
     int? pageNumber,
     int? pageSize,
@@ -33,6 +36,7 @@ class DoctorsState extends Equatable {
     return DoctorsState(
       status: status ?? this.status,
       doctors: doctors ?? this.doctors,
+      specializations: specializations ?? this.specializations,
       totalCount: totalCount ?? this.totalCount,
       pageNumber: pageNumber ?? this.pageNumber,
       pageSize: pageSize ?? this.pageSize,
@@ -45,6 +49,7 @@ class DoctorsState extends Equatable {
   List<Object?> get props => [
         status,
         doctors,
+        specializations,
         totalCount,
         pageNumber,
         pageSize,

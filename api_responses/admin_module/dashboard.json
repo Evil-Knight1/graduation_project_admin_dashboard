@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "message": "Dashboard data retrieved successfully",
+  "data": {
+    "totalUsers": 1500,
+    "activeUsers": 1200,
+    "pendingDoctors": 15,
+    "totalRevenue": 45000.50,
+    "todayRevenue": 1200.75,
+    "totalAppointments": 3500
+  },
+  "errors": null
+}

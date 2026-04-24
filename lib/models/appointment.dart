@@ -1,14 +1,16 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 enum AppointmentStatus {
-  pending(0, 'Pending'),
-  confirmed(1, 'Confirmed'),
-  cancelled(2, 'Cancelled');
+  pending(0, 'Pending', Colors.orange),
+  confirmed(1, 'Confirmed', Colors.green),
+  cancelled(2, 'Cancelled', Colors.red);
 
   final int value;
   final String label;
+  final Color color;
 
-  const AppointmentStatus(this.value, this.label);
+  const AppointmentStatus(this.value, this.label, this.color);
 
   static AppointmentStatus fromValue(int? value) {
     return AppointmentStatus.values

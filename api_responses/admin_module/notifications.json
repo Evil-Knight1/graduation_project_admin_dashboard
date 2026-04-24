@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "message": "Admin notifications retrieved successfully",
+  "data": [
+    {
+      "id": 1,
+      "title": "New Doctor Registration",
+      "message": "Dr. John Doe has registered and is pending approval.",
+      "type": "DoctorRegistration",
+      "isRead": false,
+      "createdAt": "2026-04-24T10:00:00",
+      "readAt": null,
+      "relatedEntityId": "101"
+    },
+    {
+      "id": 2,
+      "title": "System Alert",
+      "message": "Monthly backup completed successfully.",
+      "type": "System",
+      "isRead": true,
+      "createdAt": "2026-04-23T22:00:00",
+      "readAt": "2026-04-23T22:05:00",
+      "relatedEntityId": null
+    }
+  ],
+  "errors": null
+}

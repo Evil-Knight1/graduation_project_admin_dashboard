@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "message": "Doctors list retrieved successfully",
+  "data": {
+    "items": [
+      {
+        "id": 1,
+        "fullName": "Dr. Alice Smith",
+        "email": "alice.smith@example.com",
+        "specialization": "Cardiology",
+        "status": "Approved",
+        "createdAt": "2026-01-15T09:00:00"
+      },
+      {
+        "id": 2,
+        "fullName": "Dr. Bob Johnson",
+        "email": "bob.johnson@example.com",
+        "specialization": "Pediatrics",
+        "status": "Pending",
+        "createdAt": "2026-04-20T14:30:00"
+      }
+    ],
+    "totalCount": 2,
+    "pageNumber": 1,
+    "pageSize": 10
+  },
+  "errors": null
+}

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lumina Health | Revenue Analytics</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#b2c5ff",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e7e7f1",
+                        "primary-container": "#0052cc",
+                        "primary": "#003d9b",
+                        "tertiary": "#7b2600",
+                        "surface-container-low": "#f2f3fd",
+                        "secondary-fixed-dim": "#b4c5fb",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001848",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#c4d2ff",
+                        "surface": "#faf8ff",
+                        "secondary-container": "#b6c8fe",
+                        "on-secondary-fixed": "#021945",
+                        "on-tertiary-fixed-variant": "#812800",
+                        "on-tertiary-container": "#ffc6b2",
+                        "surface-dim": "#d9d9e3",
+                        "on-primary-fixed-variant": "#0040a2",
+                        "outline-variant": "#c3c6d6",
+                        "on-error-container": "#93000a",
+                        "background": "#faf8ff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#191b22",
+                        "tertiary-container": "#a33500",
+                        "surface-container": "#ededf7",
+                        "on-surface-variant": "#434654",
+                        "outline": "#737685",
+                        "secondary": "#4c5d8d",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#344573",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "surface-bright": "#faf8ff",
+                        "primary-fixed-dim": "#b2c5ff",
+                        "on-secondary-container": "#415382",
+                        "tertiary-fixed": "#ffdbcf",
+                        "secondary-fixed": "#dae2ff",
+                        "inverse-surface": "#2e3038",
+                        "on-tertiary-fixed": "#380d00",
+                        "inverse-on-surface": "#f0f0fa",
+                        "on-surface": "#191b22",
+                        "primary-fixed": "#dae2ff",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e1e2ec",
+                        "surface-variant": "#e1e2ec",
+                        "surface-tint": "#0c56d0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "display": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-manrope { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Navigation Drawer (Desktop) -->
+<aside class="hidden md:flex flex-col h-full w-64 fixed left-0 top-0 bg-[#f2f3fd] dark:bg-slate-900 py-6 pr-4 z-40">
+<div class="px-6 mb-10 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+</div>
+<span class="text-lg font-black text-[#003d9b] tracking-tight">Lumina Admin</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 text-[#434654] hover:bg-white/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 bg-white text-[#003d9b] rounded-r-full shadow-sm transition-all duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-sm font-medium">Revenue</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#434654] hover:bg-white/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm font-medium">Patients</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#434654] hover:bg-white/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-sm font-medium">Schedule</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#434654] hover:bg-white/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-6 pt-6 flex items-center gap-3">
+<img alt="Profile" class="w-10 h-10 rounded-full bg-surface-container-high" data-alt="close-up portrait of a professional healthcare administrator in a bright modern clinical setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCHKEGGWgoH9aOUcPR2c3lehq0paeYne7wOT6fy9eNzfjcohhcmP-g3likcRYrz1FatVfBYkjpSF-ymLigVvavuvG-HqjzO52jnbwGrCNqplVDN2khexoorMvtCFBupnnSTj_KRvCrvzl48i3jN2CKFCEsS28Z9czasR5W2SXi3j7U3ghGtBmQDRgEXSmWytJAlhmEhSmj1AutoxY8Y63QoQDAnVVP1SRW0PJz-CWCQhaV7Vqk5dCZj4ZSUPevYKzDEtPEnF7MSB0"/>
+<div class="overflow-hidden">
+<p class="text-sm font-bold text-on-surface truncate">Lumina Admin</p>
+<p class="text-xs text-on-surface-variant truncate">Medical Center Alpha</p>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-64 min-h-screen pb-20 md:pb-10">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-8 py-6 bg-[#faf8ff] sticky top-0 z-30">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 hover:bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="text-3xl font-bold tracking-tight text-[#003d9b] font-manrope">Revenue Analytics</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center gap-2 bg-surface-container-low px-4 py-2 rounded-xl">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">calendar_month</span>
+<span class="text-sm font-medium">Oct 2023 - Oct 2024</span>
+</div>
+<img alt="Admin" class="w-10 h-10 rounded-full border-2 border-white shadow-sm" data-alt="professional portrait of a medical director in a modern clinic office blurred background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0snx3233tKXu-XV2fwgNx3mQ8P3T4YHOgXdXnMXGoqjHbJxIhWFeyfH-LDCfKtsqYON8cOZxFUO3XzYQqn5Fr4u8UchqDOJVd2mBMeVMH5BuJEuMnDZfehaur7xuoBw6hmxyA9O8mbbCmvZzPip2nc8ZE3iRInqMvoWlN6a2gkXQB_KgB4CZ6Dwv2_9PZlh9yQVnCYDLNOhOcvjaYi-zeN0jD98YiNwasoYaJMIoBPZNGWzoZvyJKkHxnuvg2n3KI7kGAPwmDfBg"/>
+</div>
+</header>
+<!-- Content Body -->
+<div class="px-8 space-y-8 max-w-[1440px] mx-auto">
+<!-- Filter & Action Bar -->
+<section class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+<div class="flex flex-wrap items-center gap-3">
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border-none rounded-xl px-5 py-2.5 pr-10 text-sm font-medium focus:ring-2 focus:ring-primary">
+<option>Year: 2024</option>
+<option>Year: 2023</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-low border-none rounded-xl px-5 py-2.5 pr-10 text-sm font-medium focus:ring-2 focus:ring-primary">
+<option>Month: October</option>
+<option>Month: September</option>
+<option>Month: August</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full lg:w-auto">
+<button class="flex-1 lg:flex-none flex items-center justify-center gap-2 bg-surface-container-high text-primary px-6 py-2.5 rounded-full font-semibold text-sm hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+                        PDF
+                    </button>
+<button class="flex-1 lg:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary px-8 py-2.5 rounded-full font-semibold text-sm hover:opacity-90 transition-opacity shadow-md">
+<span class="material-symbols-outlined text-lg">download</span>
+                        Export CSV
+                    </button>
+</div>
+</section>
+<!-- Summary Cards Bento -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] shadow-[0px_24px_48px_rgba(25,27,34,0.04)] relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+</div>
+<p class="text-sm font-medium text-on-surface-variant mb-2">Total Revenue</p>
+<h3 class="text-4xl font-extrabold text-on-surface tracking-tight font-manrope">$1.24M</h3>
+<div class="mt-4 flex items-center gap-2 text-primary font-bold text-sm">
+<span class="material-symbols-outlined">trending_up</span>
+<span>+12.5% vs Last Year</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-[2rem] shadow-[0px_24px_48px_rgba(25,27,34,0.04)]">
+<p class="text-sm font-medium text-on-surface-variant mb-2">Monthly Revenue</p>
+<h3 class="text-4xl font-extrabold text-on-surface tracking-tight font-manrope">$142k</h3>
+<div class="mt-4 flex items-center gap-2 text-primary font-bold text-sm">
+<span class="material-symbols-outlined">trending_up</span>
+<span>+4.2% vs Prev Month</span>
+</div>
+</div>
+<div class="bg-primary text-on-primary p-8 rounded-[2rem] shadow-xl relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-container opacity-50"></div>
+<div class="relative z-10">
+<p class="text-sm font-medium text-on-primary-container mb-2">Today's Revenue</p>
+<h3 class="text-4xl font-extrabold tracking-tight font-manrope">$4.2k</h3>
+<div class="mt-4 flex items-center gap-2 text-on-primary font-bold text-sm">
+<span class="material-symbols-outlined">bolt</span>
+<span>On Track for Target</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Charts Section -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Monthly Revenue Trend (Area Chart) -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-[2.5rem] shadow-[0px_24px_48px_rgba(25,27,34,0.04)]">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h2 class="text-xl font-extrabold font-manrope text-on-surface">Monthly Revenue Trend</h2>
+<p class="text-sm text-on-surface-variant">Annual fiscal performance overview</p>
+</div>
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="text-xs font-bold text-on-surface-variant">2024 Revenue</span>
+</div>
+</div>
+<div class="h-64 flex items-end justify-between gap-2 px-2 relative">
+<!-- Simulated Area Chart using div heights and gradients -->
+<div class="absolute inset-x-0 bottom-0 h-full flex items-end">
+<svg class="w-full h-full preserve-aspect-ratio-none" viewbox="0 0 1000 100">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#003d9b" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#003d9b" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,80 Q100,60 200,75 T400,40 T600,60 T800,30 T1000,50 L1000,100 L0,100 Z" fill="url(#chartGradient)"></path>
+<path d="M0,80 Q100,60 200,75 T400,40 T600,60 T800,30 T1000,50" fill="none" stroke="#003d9b" stroke-width="3"></path>
+</svg>
+</div>
+<!-- Axis Labels -->
+<div class="w-full flex justify-between pt-4 text-[10px] font-bold text-outline uppercase tracking-wider">
+<span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span>
+</div>
+</div>
+</div>
+<!-- Daily Revenue Breakout (Bar Chart) -->
+<div class="bg-surface-container-low p-8 rounded-[2.5rem]">
+<h2 class="text-xl font-extrabold font-manrope text-on-surface mb-6">Daily Breakout</h2>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface">Mon</span>
+<span class="text-on-surface-variant">$4,200</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 85%;"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface">Tue</span>
+<span class="text-on-surface-variant">$3,850</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 70%;"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface">Wed</span>
+<span class="text-on-surface-variant">$4,900</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 95%;"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface">Thu</span>
+<span class="text-on-surface-variant">$3,200</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 60%;"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between text-xs font-bold">
+<span class="text-on-surface">Fri</span>
+<span class="text-on-surface-variant">$5,100</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 100%;"></div>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 py-3 text-sm font-bold text-primary hover:bg-white transition-colors rounded-xl border border-primary/10">
+                        View Detailed Log
+                    </button>
+</div>
+</section>
+<!-- Bottom Section: Revenue by Category -->
+<section class="bg-surface-container-lowest p-8 rounded-[2.5rem] shadow-[0px_24px_48px_rgba(25,27,34,0.04)] mb-12">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-xl font-extrabold font-manrope text-on-surface">Revenue by Category</h2>
+<span class="text-sm font-bold text-primary cursor-pointer hover:underline">View Insights</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-surface-container-low">
+<th class="pb-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">Service Category</th>
+<th class="pb-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">Transaction Count</th>
+<th class="pb-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">Total Amount</th>
+<th class="pb-4 text-xs font-bold text-on-surface-variant uppercase tracking-widest">Performance</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">stethoscope</span>
+</div>
+<span class="font-bold text-on-surface">General Consultations</span>
+</div>
+</td>
+<td class="py-5 font-medium">1,248</td>
+<td class="py-5 font-bold">$62,400</td>
+<td class="py-5">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold">Stable</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-tertiary-fixed flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined">biotech</span>
+</div>
+<span class="font-bold text-on-surface">Laboratory Tests</span>
+</div>
+</td>
+<td class="py-5 font-medium">854</td>
+<td class="py-5 font-bold">$42,700</td>
+<td class="py-5">
+<span class="px-3 py-1 rounded-full bg-[#dcfce7] text-[#166534] text-xs font-bold">High Growth</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">medication</span>
+</div>
+<span class="font-bold text-on-surface">Pharmacy Sales</span>
+</div>
+</td>
+<td class="py-5 font-medium">2,105</td>
+<td class="py-5 font-bold">$26,310</td>
+<td class="py-5">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold">Stable</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors">
+<td class="py-5">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-error-container flex items-center justify-center text-error">
+<span class="material-symbols-outlined">emergency</span>
+</div>
+<span class="font-bold text-on-surface">Emergency Services</span>
+</div>
+</td>
+<td class="py-5 font-medium">112</td>
+<td class="py-5 font-bold">$10,590</td>
+<td class="py-5">
+<span class="px-3 py-1 rounded-full bg-error-container text-on-error-container text-xs font-bold">High Load</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest shadow-[0_-8px_24px_rgba(0,0,0,0.05)] flex justify-around items-center py-3 px-6 z-50">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Dash</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-[10px] font-bold">Revenue</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-bold">Patients</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-[10px] font-bold">Sched</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">Set</span>
+</button>
+</nav>
+</body></html>

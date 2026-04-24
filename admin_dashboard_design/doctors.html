@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Doctor Management - Lumina</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#b6c8fe",
+                      "on-error-container": "#93000a",
+                      "surface": "#faf8ff",
+                      "tertiary-fixed-dim": "#ffb59b",
+                      "on-surface": "#191b22",
+                      "tertiary-container": "#a33500",
+                      "primary-fixed": "#dae2ff",
+                      "on-tertiary-fixed": "#380d00",
+                      "on-surface-variant": "#434654",
+                      "on-secondary": "#ffffff",
+                      "surface-tint": "#0c56d0",
+                      "outline-variant": "#c3c6d6",
+                      "surface-container-highest": "#e1e2ec",
+                      "on-tertiary": "#ffffff",
+                      "inverse-surface": "#2e3038",
+                      "on-tertiary-container": "#ffc6b2",
+                      "primary": "#003d9b",
+                      "on-secondary-fixed-variant": "#344573",
+                      "on-error": "#ffffff",
+                      "on-background": "#191b22",
+                      "surface-container-high": "#e7e7f1",
+                      "primary-fixed-dim": "#b2c5ff",
+                      "secondary-fixed-dim": "#b4c5fb",
+                      "on-primary-fixed-variant": "#0040a2",
+                      "surface-variant": "#e1e2ec",
+                      "secondary-fixed": "#dae2ff",
+                      "on-secondary-container": "#415382",
+                      "surface-bright": "#faf8ff",
+                      "on-primary-container": "#c4d2ff",
+                      "background": "#faf8ff",
+                      "on-primary-fixed": "#001848",
+                      "secondary": "#4c5d8d",
+                      "primary-container": "#0052cc",
+                      "tertiary-fixed": "#ffdbcf",
+                      "outline": "#737685",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#d9d9e3",
+                      "on-tertiary-fixed-variant": "#812800",
+                      "tertiary": "#7b2600",
+                      "inverse-on-surface": "#f0f0fa",
+                      "surface-container-low": "#f2f3fd",
+                      "inverse-primary": "#b2c5ff",
+                      "on-primary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-container": "#ededf7",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#021945"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "display": ["Manrope"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .headline { font-family: 'Manrope', sans-serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen">
+<!-- Navigation Drawer -->
+<aside class="h-screen w-64 fixed left-0 top-0 rounded-none bg-[#f2f3fd] dark:bg-[#15171c] hidden md:flex flex-col p-6 gap-2 z-40">
+<div class="font-['Manrope'] font-black text-2xl text-[#003d9b] dark:text-[#4d8dff] mb-8">LUMINA</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 text-[#434654] dark:text-[#9194a1] hover:bg-[#e7e7f1] dark:hover:bg-[#1c1e24] hover:translate-x-1 transition-all duration-200 cursor-pointer font-['Inter'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#ffffff] dark:bg-[#1e2025] text-[#003d9b] dark:text-[#4d8dff] rounded-lg shadow-sm font-semibold transition-all duration-200 font-['Inter'] text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+                Doctors
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434654] dark:text-[#9194a1] hover:bg-[#e7e7f1] dark:hover:bg-[#1c1e24] hover:translate-x-1 transition-all duration-200 cursor-pointer font-['Inter'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+                Patients
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434654] dark:text-[#9194a1] hover:bg-[#e7e7f1] dark:hover:bg-[#1c1e24] hover:translate-x-1 transition-all duration-200 cursor-pointer font-['Inter'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                Schedules
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434654] dark:text-[#9194a1] hover:bg-[#e7e7f1] dark:hover:bg-[#1c1e24] hover:translate-x-1 transition-all duration-200 cursor-pointer font-['Inter'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                Analytics
+            </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-64 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 no-border bg-[#faf8ff] dark:bg-[#0a0a0c] shadow-[0px_24px_48px_rgba(25,27,34,0.04)] flex items-center justify-between px-8 h-20">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-[#003d9b]">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-['Manrope'] font-bold text-3xl tracking-tight text-[#003d9b] dark:text-[#4d8dff]">Doctor Management</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex flex-col items-end">
+<span class="text-xs font-semibold text-on-surface-variant">Admin User</span>
+<span class="text-[10px] text-outline">System Oversight</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary font-bold overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional male administrator in a modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC912bZrL7A2WSGdJz3To5X7J1fiRdHMzeyit0AM9aoi-N2y9pilaijazvhqPydBVrm7LX22k75c7o-MQWPNC9gpcaN_VP1OlNgfgN4WTMs6jfJ0ABgbec6IdF1OhfQ6k4KLLNSLuYhRxS74iDgDFegt8mQRlpQvNXp1hCwtbPsgO0bYUBGlGC6xrUANvljbWjlRTWklAeqFoa0MEtX-OxEZ7KtnjdyptMCKfifxfVKKUH3VOziplrdh0_0orLumOHKXThtu6w7TJE"/>
+</div>
+</div>
+</header>
+<!-- Search and Filter Canvas -->
+<div class="p-8 pb-4">
+<div class="bg-surface-container-low rounded-full p-2 flex flex-col md:flex-row items-center gap-4 shadow-[0px_10px_30px_rgba(0,0,0,0.02)]">
+<div class="relative flex-grow w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-transparent border-none focus:ring-0 text-on-surface font-body placeholder:text-outline/60" placeholder="Search by Name or Specialization..." type="text"/>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30 hidden md:block"></div>
+<div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 px-2 md:px-0">
+<button class="px-5 py-2 bg-primary text-on-primary rounded-full text-xs font-semibold whitespace-nowrap">All Doctors</button>
+<button class="px-5 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-full text-xs font-semibold whitespace-nowrap transition-colors">Pending</button>
+<button class="px-5 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-full text-xs font-semibold whitespace-nowrap transition-colors">Approved</button>
+<button class="px-5 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-full text-xs font-semibold whitespace-nowrap transition-colors">Rejected</button>
+</div>
+</div>
+</div>
+<!-- Content Canvas -->
+<div class="p-8 pt-4 space-y-6 flex-grow">
+<!-- Doctor List Bento / Table Alternative -->
+<div class="grid grid-cols-1 gap-4">
+<!-- Entry 1: Pending -->
+<div class="bg-surface-container-lowest rounded-full p-6 flex flex-col lg:flex-row items-center justify-between shadow-[0px_24px_48px_rgba(25,27,34,0.04)] hover:translate-y-[-2px] transition-all duration-300 group">
+<div class="flex items-center gap-6 w-full lg:w-1/3">
+<div class="relative">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="professional male doctor portrait with clinical setting background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsK0gDJ_osCAOoHvrj4NOFbII3aJgeBNj2BzdoIdd2jF3qQvYczrv3oIbglC2FkvMcp9cNJMSkGLstbUeCtisdHHzPaS9fEewJh8mqTNPdJ4LVnRqLGIVlGuPbhDVY1Cqw4F8ZiwSAwBgKNZQyo8VbDRoNXCI4lv2EoyPI3mbKljVaGKPWdtZX7qEnr1r-h59okXBp_4VFw0z28K5qYEoW43tpDBYtc0ixB4OpfQZURBmNAjrzEXjwO6WaNX_m6ih5hUxwXXZyjyo"/>
+</div>
+<div class="absolute -bottom-1 -right-1 w-5 h-5 bg-tertiary rounded-full border-2 border-surface-container-lowest flex items-center justify-center">
+<span class="material-symbols-outlined text-[10px] text-white" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+</div>
+</div>
+<div class="flex flex-col">
+<h3 class="headline text-lg font-bold text-on-surface">Dr. Aris Thorne</h3>
+<p class="font-body text-sm text-on-surface-variant">Cardiology Specialist</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12 w-full lg:w-auto mt-6 lg:mt-0">
+<div class="flex flex-col items-center lg:items-start">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Status</span>
+<span class="px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded-full text-[10px] font-bold">PENDING APPROVAL</span>
+</div>
+<div class="flex flex-col items-center lg:items-start">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Registered</span>
+<span class="text-sm font-semibold text-on-surface">Oct 24, 2023</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-xl font-bold text-xs shadow-md shadow-primary/20 hover:scale-105 active:scale-95 transition-transform">Approve</button>
+<button class="border-2 border-error/20 text-error px-6 py-2.5 rounded-xl font-bold text-xs hover:bg-error/5 transition-colors">Reject</button>
+</div>
+</div>
+</div>
+<!-- Entry 2: Approved -->
+<div class="bg-surface-container-lowest rounded-full p-6 flex flex-col lg:flex-row items-center justify-between shadow-[0px_24px_48px_rgba(25,27,34,0.04)] hover:translate-y-[-2px] transition-all duration-300 group">
+<div class="flex items-center gap-6 w-full lg:w-1/3">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="professional female doctor portrait smiling in a brightly lit hospital corridor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBen75DuSHqDhhRQ88pYtVrqrCuMCDFKg8CTnhoRecUERcyWol9bBb0Nmlaj1MnknFyQrNKL8lJi53sdgIfRVQfIY-0RpRVDuivgHZUXtaWOgy15F1Dz6sgZ847xLpcP0x-GzY1-gbrohfyaHbBx8xKJqHllf8yLo8KD_x9p0bxCHU0Po9Xb65yi8ltl7rVOdAblsFgfZcy4k-BwsS38JnGBzhM2JW70OXqemHpEzND_3wZdohomdqqtLGiR2bO8bH4fZ946IhFFsQ"/>
+</div>
+<div class="flex flex-col">
+<h3 class="headline text-lg font-bold text-on-surface">Dr. Sarah Jenkins</h3>
+<p class="font-body text-sm text-on-surface-variant">Pediatrics</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12 w-full lg:w-auto mt-6 lg:mt-0">
+<div class="flex flex-col items-center lg:items-start">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Status</span>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold">APPROVED</span>
+</div>
+<div class="flex flex-col items-center lg:items-start">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Registered</span>
+<span class="text-sm font-semibold text-on-surface">Aug 12, 2023</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-3 text-primary hover:bg-primary-fixed rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-3 text-primary hover:bg-primary-fixed rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-3 text-outline hover:text-error hover:bg-error-container/20 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Entry 3: Rejected -->
+<div class="bg-surface-container-lowest rounded-full p-6 flex flex-col lg:flex-row items-center justify-between shadow-[0px_24px_48px_rgba(25,27,34,0.04)] hover:translate-y-[-2px] transition-all duration-300 group opacity-80 hover:opacity-100">
+<div class="flex items-center gap-6 w-full lg:w-1/3">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/10 grayscale">
+<img class="w-full h-full object-cover" data-alt="professional male doctor in lab coat looking neutral against white wall" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBD0sCFBScRbaCKx03_n92l9ZON5dUYBbOFsvfqvfFfZUWLoBkVstpT9_MfCRSJrQ-QmGpCFh1rFWxjf5j2nCniYrBnyNIse-g4yUxST9cS5QT0l5Vo6FwdzqHn-JE5sGE8bzslDRxwDyRJNbt8w6GT5xZmS-sM_YLIKrD5ss4HxH_tbqvJX2fyRULNmJuz64xv7w-vfwYMJ6s1nEk6wsfC2AL_eHaroOqMDPq1oIqr0dSRM92T8lHtwWJ6jIgI7j6Vp8mUh6fxzJc"/>
+</div>
+<div class="flex flex-col">
+<h3 class="headline text-lg font-bold text-on-surface">Dr. Marcus Vane</h3>
+<p class="font-body text-sm text-on-surface-variant">Neurology</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12 w-full lg:w-auto mt-6 lg:mt-0">
+<div class="flex flex-col items-center lg:items-start">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Status</span>
+<span class="px-3 py-1 bg-error-container text-on-error-container rounded-full text-[10px] font-bold">REJECTED</span>
+</div>
+<div class="flex flex-col items-center lg:items-start">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Registered</span>
+<span class="text-sm font-semibold text-on-surface">Sep 05, 2023</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-3 text-primary hover:bg-primary-fixed rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-3 text-primary hover:bg-primary-fixed rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Entry 4: Approved -->
+<div class="bg-surface-container-lowest rounded-full p-6 flex flex-col lg:flex-row items-center justify-between shadow-[0px_24px_48px_rgba(25,27,34,0.04)] hover:translate-y-[-2px] transition-all duration-300 group">
+<div class="flex items-center gap-6 w-full lg:w-1/3">
+<div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="focused female doctor with stethoscope in modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHp0nefYga52ugnAXuwo5RJZb4v-yBJMjPZwcB-hRQVQ3RlZKP2_g4ZHP2LVYoC6M5nY142y53ZS8VRrNBM37Gw8xDo5iXV56-E53cXt2XaxUrfHcAxZ8I7_6-k8Lg5g3J64cVhMOs-6Yr766mN5UYZgipNiKpVa4yqzcSUF0Q00LRay7X_m4Q0FqZpwCvhh4HAXJsTGFZdXCBwRKUI6R6OEtinL1sxSk1YKTbL4FXh5RUu8gudONMaOS8SAyaIlBZAvQX_E6qtVk"/>
+</div>
+<div class="flex flex-col">
+<h3 class="headline text-lg font-bold text-on-surface">Dr. Elena Thorne</h3>
+<p class="font-body text-sm text-on-surface-variant">Dermatology</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row items-center gap-8 lg:gap-12 w-full lg:w-auto mt-6 lg:mt-0">
+<div class="flex flex-col items-center lg:items-start">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Status</span>
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[10px] font-bold">APPROVED</span>
+</div>
+<div class="flex flex-col items-center lg:items-start">
+<span class="text-[10px] uppercase tracking-widest text-outline font-bold mb-1">Registered</span>
+<span class="text-sm font-semibold text-on-surface">Jul 30, 2023</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-3 text-primary hover:bg-primary-fixed rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+<button class="p-3 text-primary hover:bg-primary-fixed rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="edit">edit</span>
+</button>
+<button class="p-3 text-outline hover:text-error hover:bg-error-container/20 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination Controls -->
+<footer class="p-8 flex items-center justify-between mt-auto">
+<span class="text-xs font-semibold text-on-surface-variant font-label">Showing <span class="text-primary">1 - 4</span> of 128 doctors</span>
+<div class="flex items-center gap-1">
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-outline hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-on-primary font-bold text-xs shadow-md shadow-primary/20">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors font-bold text-xs">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors font-bold text-xs">3</button>
+<span class="px-2 text-outline">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors font-bold text-xs">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full text-outline hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</footer>
+</main>
+<!-- Mobile Navigation Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-low h-16 flex items-center justify-around z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.05)]">
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-[10px] font-bold">Dash</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-primary">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+<span class="text-[10px] font-bold">Doctors</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-xl">group</span>
+<span class="text-[10px] font-bold">Patients</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-xl">calendar_today</span>
+<span class="text-[10px] font-bold">Sched</span>
+</button>
+</nav>
+</body></html>
